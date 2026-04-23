@@ -3,724 +3,238 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Timeline — 23 Papers That Shaped Modern AI</title>
-<meta name="description" content="An interactive timeline of the most important AI research papers from 2017 to 2025, with key concepts explained.">
+<title>AI Timeline — Papers, Branches &amp; Products That Shaped Modern AI</title>
+<meta name="description" content="An interactive timeline of landmark AI research papers, a zoomable branch map of the full AI landscape, open research questions, and AI-native product gallery.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ============================================
-   RESET & BASE
-   ============================================ */
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-:root {
-  --bg: #f0ece1;
-  --bg-card: #faf8f3;
-  --text: #1a1a2e;
-  --text-secondary: #5a5a6e;
-  --accent: #2eff00;
-  --accent-dim: rgba(46, 255, 0, 0.15);
-  --border: #d4d0c5;
-
-  --act1: #e07b4c;
-  --act2: #4c8fe0;
-  --act3: #8b5cf6;
-  --act4: #0ea5a0;
-  --act5: #e04c7a;
-  --act6: #d4a017;
-
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-
-  --container: 1100px;
-  --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#f0ece1;--bg-card:#faf8f3;--text:#1a1a2e;--text-secondary:#5a5a6e;
+  --accent:#2eff00;--accent-dim:rgba(46,255,0,0.15);--border:#d4d0c5;
+  --act1:#e07b4c;--act2:#4c8fe0;--act3:#8b5cf6;--act4:#0ea5a0;--act5:#e04c7a;--act6:#d4a017;
+  --br1:#e07b4c;--br2:#22c55e;--br3:#3b82f6;--br4:#a855f7;--br5:#6366f1;--br6:#ec4899;
+  --font-serif:'Cormorant Garamond',Georgia,serif;
+  --font-sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --container:1100px;--transition:0.35s cubic-bezier(0.4,0,0.2,1);
 }
+html{scroll-behavior:smooth}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--text);line-height:1.65;font-size:15px;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
 
-html { scroll-behavior: smooth; }
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(240,236,225,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+nav .nav-inner{max-width:var(--container);margin:0 auto;padding:0.75rem 2rem;display:flex;align-items:center;justify-content:space-between}
+nav .nav-logo{font-family:var(--font-serif);font-size:1.2rem;font-weight:700;letter-spacing:-0.02em}
+nav .nav-links{display:flex;gap:1.4rem;list-style:none;flex-wrap:wrap}
+nav .nav-links a{font-size:0.75rem;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-secondary);transition:color var(--transition);position:relative}
+nav .nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1.5px;background:var(--accent);transition:width var(--transition)}
+nav .nav-links a:hover{color:var(--text)}
+nav .nav-links a:hover::after{width:100%}
 
-body {
-  font-family: var(--font-sans);
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.65;
-  font-size: 15px;
-  -webkit-font-smoothing: antialiased;
-}
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:6rem 2rem 4rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 30% 50%,rgba(46,255,0,0.04) 0%,transparent 50%),radial-gradient(ellipse at 70% 50%,rgba(224,123,76,0.04) 0%,transparent 50%);animation:hero-drift 20s ease-in-out infinite alternate}
+@keyframes hero-drift{0%{transform:translate(0,0) rotate(0deg)}100%{transform:translate(-2%,1%) rotate(1deg)}}
+.hero-content{position:relative;z-index:1;max-width:720px}
+.hero h1{font-family:var(--font-serif);font-size:clamp(2.8rem,6vw,4.5rem);font-weight:700;line-height:1.1;letter-spacing:-0.03em;margin-bottom:1.5rem}
+.hero h1 span{background:linear-gradient(135deg,var(--act1),var(--act5),var(--act3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:1.1rem;color:var(--text-secondary);max-width:560px;margin:0 auto 2.5rem;line-height:1.7}
+.hero-stats{display:flex;justify-content:center;gap:2rem;margin-top:2rem;flex-wrap:wrap}
+.hero-stat{text-align:center}
+.hero-stat .num{font-family:var(--font-serif);font-size:2.5rem;font-weight:700;line-height:1;color:var(--text)}
+.hero-stat .label{font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-secondary);margin-top:0.3rem}
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.5rem;color:var(--text-secondary);font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;animation:bounce 2s ease-in-out infinite}
+.scroll-hint svg{width:20px;height:20px;stroke:var(--text-secondary)}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
 
-a { color: inherit; text-decoration: none; }
+/* SECTION COMMON */
+section{padding:5rem 2rem}
+.section-header{max-width:var(--container);margin:0 auto 3rem;text-align:center}
+.section-header h2{font-family:var(--font-serif);font-size:clamp(2rem,4vw,3rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:0.75rem}
+.section-header p{color:var(--text-secondary);max-width:560px;margin:0 auto;font-size:1rem}
 
-/* ============================================
-   NAV
-   ============================================ */
-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  background: rgba(240, 236, 225, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-  transition: var(--transition);
-}
+/* FILTER PILLS */
+.filter-bar{max-width:var(--container);margin:0 auto 2.5rem;display:flex;flex-wrap:wrap;justify-content:center;gap:0.5rem}
+.filter-pill{padding:0.45rem 1rem;border-radius:100px;border:1.5px solid var(--border);background:transparent;font-family:var(--font-sans);font-size:0.78rem;font-weight:500;color:var(--text-secondary);cursor:pointer;transition:all var(--transition);white-space:nowrap}
+.filter-pill:hover{border-color:var(--text-secondary);color:var(--text)}
+.filter-pill.active{background:var(--text);border-color:var(--text);color:var(--bg)}
+.filter-pill[data-act="1"].active{background:var(--act1);border-color:var(--act1);color:#fff}
+.filter-pill[data-act="2"].active{background:var(--act2);border-color:var(--act2);color:#fff}
+.filter-pill[data-act="3"].active{background:var(--act3);border-color:var(--act3);color:#fff}
+.filter-pill[data-act="4"].active{background:var(--act4);border-color:var(--act4);color:#fff}
+.filter-pill[data-act="5"].active{background:var(--act5);border-color:var(--act5);color:#fff}
+.filter-pill[data-act="6"].active{background:var(--act6);border-color:var(--act6);color:#fff}
 
-nav .nav-inner {
-  max-width: var(--container);
-  margin: 0 auto;
-  padding: 0.75rem 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+/* TIMELINE */
+.timeline-container{max-width:var(--container);margin:0 auto;position:relative}
+.timeline-line{position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--border);transform:translateX(-50%)}
+.timeline-item{position:relative;display:flex;align-items:flex-start;margin-bottom:3rem;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.timeline-item.visible{opacity:1;transform:translateY(0)}
+.timeline-item.hidden-filter{display:none}
+.timeline-item:nth-child(odd){flex-direction:row}
+.timeline-item:nth-child(even){flex-direction:row-reverse}
+.timeline-item:nth-child(odd) .tl-card{margin-right:calc(50% + 2rem);text-align:right}
+.timeline-item:nth-child(even) .tl-card{margin-left:calc(50% + 2rem);text-align:left}
+.tl-node{position:absolute;left:50%;top:0.5rem;width:16px;height:16px;border-radius:50%;border:3px solid var(--border);background:var(--bg);transform:translateX(-50%);z-index:2;transition:all var(--transition)}
+.timeline-item:hover .tl-node{transform:translateX(-50%) scale(1.4);border-color:var(--accent);box-shadow:0 0 12px var(--accent-dim)}
+.timeline-item[data-act="1"] .tl-node{border-color:var(--act1)}
+.timeline-item[data-act="2"] .tl-node{border-color:var(--act2)}
+.timeline-item[data-act="3"] .tl-node{border-color:var(--act3)}
+.timeline-item[data-act="4"] .tl-node{border-color:var(--act4)}
+.timeline-item[data-act="5"] .tl-node{border-color:var(--act5)}
+.timeline-item[data-act="6"] .tl-node{border-color:var(--act6)}
+.tl-card{width:100%;cursor:pointer}
+.tl-card-inner{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;transition:all var(--transition);display:inline-block;max-width:460px;text-align:left}
+.tl-card-inner:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,0.08);border-color:var(--accent)}
+.tl-year{font-family:var(--font-serif);font-size:0.85rem;font-weight:600;display:inline-block;padding:0.15rem 0.6rem;border-radius:4px;margin-bottom:0.6rem}
+.timeline-item[data-act="1"] .tl-year{background:rgba(224,123,76,0.12);color:var(--act1)}
+.timeline-item[data-act="2"] .tl-year{background:rgba(76,143,224,0.12);color:var(--act2)}
+.timeline-item[data-act="3"] .tl-year{background:rgba(139,92,246,0.12);color:var(--act3)}
+.timeline-item[data-act="4"] .tl-year{background:rgba(14,165,160,0.12);color:var(--act4)}
+.timeline-item[data-act="5"] .tl-year{background:rgba(224,76,122,0.12);color:var(--act5)}
+.timeline-item[data-act="6"] .tl-year{background:rgba(212,160,23,0.12);color:var(--act6)}
+.tl-act-label{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-secondary);margin-bottom:0.2rem}
+.tl-title{font-family:var(--font-serif);font-size:1.25rem;font-weight:700;line-height:1.3;margin-bottom:0.3rem;letter-spacing:-0.01em}
+.tl-authors{font-size:0.78rem;color:var(--text-secondary);margin-bottom:0.6rem}
+.tl-desc{font-size:0.88rem;color:var(--text-secondary);line-height:1.6}
+.tl-link-hint{display:inline-flex;align-items:center;gap:0.3rem;margin-top:0.75rem;font-size:0.75rem;font-weight:500;color:var(--text);opacity:0;transform:translateX(-5px);transition:all var(--transition)}
+.tl-link-hint svg{width:12px;height:12px}
+.tl-card-inner:hover .tl-link-hint{opacity:1;transform:translateX(0)}
 
-nav .nav-logo {
-  font-family: var(--font-serif);
-  font-size: 1.2rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
+/* CONCEPTS */
+#concepts{background:var(--bg-card)}
+.search-box{max-width:400px;margin:0 auto 2rem;position:relative}
+.search-box input{width:100%;padding:0.7rem 1rem 0.7rem 2.5rem;border:1.5px solid var(--border);border-radius:100px;background:var(--bg);font-family:var(--font-sans);font-size:0.9rem;color:var(--text);outline:none;transition:border-color var(--transition)}
+.search-box input:focus{border-color:var(--accent)}
+.search-box input::placeholder{color:#aaa}
+.search-box svg{position:absolute;left:0.9rem;top:50%;transform:translateY(-50%);width:16px;height:16px;stroke:#aaa}
+.concepts-grid{max-width:var(--container);margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.25rem}
+.concept-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:1.5rem;transition:all var(--transition);cursor:default}
+.concept-card:hover{transform:translateY(-4px);box-shadow:0 12px 35px rgba(0,0,0,0.07);border-color:var(--accent)}
+.concept-card.hidden-filter{display:none}
+.concept-name{font-family:var(--font-serif);font-size:1.3rem;font-weight:700;margin-bottom:0.5rem;display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap}
+.concept-tag{font-family:var(--font-sans);font-size:0.6rem;text-transform:uppercase;letter-spacing:0.08em;padding:0.15rem 0.5rem;border-radius:4px;font-weight:600}
+.concept-desc{font-size:0.9rem;color:var(--text-secondary);line-height:1.65;margin-bottom:0.75rem}
+.concept-why{font-size:0.82rem;color:var(--text);line-height:1.55;padding:0.7rem;background:var(--accent-dim);border-radius:6px;margin-bottom:0.75rem}
+.concept-why strong{font-weight:600}
+.concept-origin{display:inline-flex;align-items:center;gap:0.3rem;font-size:0.75rem;font-weight:500;color:var(--text-secondary);transition:color var(--transition)}
+.concept-origin:hover{color:var(--text)}
+.concept-origin svg{width:12px;height:12px}
 
-nav .nav-links {
-  display: flex;
-  gap: 2rem;
-  list-style: none;
-}
-
-nav .nav-links a {
-  font-size: 0.8rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-secondary);
-  transition: color var(--transition);
-  position: relative;
-}
-
-nav .nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 1.5px;
-  background: var(--accent);
-  transition: width var(--transition);
-}
-
-nav .nav-links a:hover { color: var(--text); }
-nav .nav-links a:hover::after { width: 100%; }
-
-/* ============================================
-   HERO
-   ============================================ */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 6rem 2rem 4rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(ellipse at 30% 50%, rgba(46, 255, 0, 0.04) 0%, transparent 50%),
-              radial-gradient(ellipse at 70% 50%, rgba(224, 123, 76, 0.04) 0%, transparent 50%);
-  animation: hero-drift 20s ease-in-out infinite alternate;
-}
-
-@keyframes hero-drift {
-  0% { transform: translate(0, 0) rotate(0deg); }
-  100% { transform: translate(-2%, 1%) rotate(1deg); }
-}
-
-.hero-content {
-  position: relative;
-  z-index: 1;
-  max-width: 720px;
-}
-
-.hero h1 {
-  font-family: var(--font-serif);
-  font-size: clamp(2.8rem, 6vw, 4.5rem);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
-  margin-bottom: 1.5rem;
-}
-
-.hero h1 span {
-  display: inline;
-  background: linear-gradient(135deg, var(--act1), var(--act5), var(--act3));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.hero p {
-  font-size: 1.1rem;
-  color: var(--text-secondary);
-  max-width: 540px;
-  margin: 0 auto 2.5rem;
-  line-height: 1.7;
-}
-
-.hero-stats {
-  display: flex;
-  justify-content: center;
-  gap: 3rem;
-  margin-top: 2rem;
-}
-
-.hero-stat {
-  text-align: center;
-}
-
-.hero-stat .num {
-  font-family: var(--font-serif);
-  font-size: 2.5rem;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--text);
-}
-
-.hero-stat .label {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-secondary);
-  margin-top: 0.3rem;
-}
-
-.scroll-hint {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--text-secondary);
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  animation: bounce 2s ease-in-out infinite;
-}
-
-.scroll-hint svg { width: 20px; height: 20px; stroke: var(--text-secondary); }
-
-@keyframes bounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(6px); }
-}
+/* COMPANY MAP */
+.company-grid{max-width:var(--container);margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem}
+.company-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;transition:all var(--transition)}
+.company-card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,0.07)}
+.company-name{font-family:var(--font-serif);font-size:1.4rem;font-weight:700;margin-bottom:0.2rem}
+.company-bet{font-size:0.85rem;color:var(--text-secondary);margin-bottom:1rem;font-style:italic}
+.company-detail{font-size:0.82rem;margin-bottom:0.5rem}
+.company-detail strong{display:block;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-secondary);margin-bottom:0.15rem}
+.company-bar{height:3px;border-radius:2px;margin-bottom:1rem}
 
 /* ============================================
-   SECTION COMMON
+   BRANCH MAP (SVG)
    ============================================ */
-section { padding: 5rem 2rem; }
+#branch-map{background:var(--bg-card)}
+.branch-map-wrap{max-width:var(--container);margin:0 auto;position:relative;overflow:hidden;border:1px solid var(--border);border-radius:16px;background:var(--bg);touch-action:none;user-select:none}
+.branch-map-wrap svg{display:block;width:100%;height:auto;cursor:grab}
+.branch-map-wrap svg:active{cursor:grabbing}
+.branch-map-controls{position:absolute;bottom:1rem;right:1rem;display:flex;gap:0.4rem;z-index:5}
+.branch-map-controls button{width:36px;height:36px;border-radius:8px;border:1px solid var(--border);background:var(--bg-card);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--transition)}
+.branch-map-controls button:hover{background:var(--text);color:var(--bg)}
+.branch-legend{max-width:var(--container);margin:1.5rem auto 0;display:flex;flex-wrap:wrap;justify-content:center;gap:1rem}
+.branch-legend-item{display:flex;align-items:center;gap:0.4rem;font-size:0.78rem;color:var(--text-secondary)}
+.branch-legend-item .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 
-.section-header {
-  max-width: var(--container);
-  margin: 0 auto 3rem;
-  text-align: center;
+/* BRANCH TIMELINE */
+#branch-timeline .timeline-item[data-branch="world-models"] .tl-node{border-color:var(--br1)}
+#branch-timeline .timeline-item[data-branch="world-models"] .tl-year{background:rgba(224,123,76,0.12);color:var(--br1)}
+#branch-timeline .timeline-item[data-branch="robotics"] .tl-node{border-color:var(--br2)}
+#branch-timeline .timeline-item[data-branch="robotics"] .tl-year{background:rgba(34,197,94,0.12);color:var(--br2)}
+#branch-timeline .timeline-item[data-branch="ai-science"] .tl-node{border-color:var(--br3)}
+#branch-timeline .timeline-item[data-branch="ai-science"] .tl-year{background:rgba(59,130,246,0.12);color:var(--br3)}
+#branch-timeline .timeline-item[data-branch="diffusion"] .tl-node{border-color:var(--br4)}
+#branch-timeline .timeline-item[data-branch="diffusion"] .tl-year{background:rgba(168,85,247,0.12);color:var(--br4)}
+#branch-timeline .timeline-item[data-branch="neuromorphic"] .tl-node{border-color:var(--br5)}
+#branch-timeline .timeline-item[data-branch="neuromorphic"] .tl-year{background:rgba(99,102,241,0.12);color:var(--br5)}
+#branch-timeline .timeline-item[data-branch="agents"] .tl-node{border-color:var(--br6)}
+#branch-timeline .timeline-item[data-branch="agents"] .tl-year{background:rgba(236,72,153,0.12);color:var(--br6)}
+.filter-pill[data-branch="world-models"].active{background:var(--br1);border-color:var(--br1);color:#fff}
+.filter-pill[data-branch="robotics"].active{background:var(--br2);border-color:var(--br2);color:#fff}
+.filter-pill[data-branch="ai-science"].active{background:var(--br3);border-color:var(--br3);color:#fff}
+.filter-pill[data-branch="diffusion"].active{background:var(--br4);border-color:var(--br4);color:#fff}
+.filter-pill[data-branch="neuromorphic"].active{background:var(--br5);border-color:var(--br5);color:#fff}
+.filter-pill[data-branch="agents"].active{background:var(--br6);border-color:var(--br6);color:#fff}
+
+/* OPEN QUESTIONS */
+.questions-grid{max-width:var(--container);margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem}
+.question-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;transition:all var(--transition)}
+.question-card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,0.07)}
+.question-num{font-family:var(--font-serif);font-size:2rem;font-weight:700;line-height:1;margin-bottom:0.5rem;opacity:0.15}
+.question-text{font-family:var(--font-serif);font-size:1.15rem;font-weight:700;line-height:1.35;margin-bottom:0.75rem}
+.question-context{font-size:0.85rem;color:var(--text-secondary);line-height:1.6;margin-bottom:0.75rem}
+.question-researchers{font-size:0.78rem;color:var(--text)}
+.question-researchers strong{display:block;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-secondary);margin-bottom:0.2rem}
+
+/* PRODUCT GALLERY */
+#products{background:var(--bg-card)}
+.products-grid{max-width:var(--container);margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem}
+.product-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:1.5rem;transition:all var(--transition)}
+.product-card:hover{transform:translateY(-4px);box-shadow:0 12px 35px rgba(0,0,0,0.07);border-color:var(--accent)}
+.product-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem}
+.product-name{font-family:var(--font-serif);font-size:1.35rem;font-weight:700}
+.product-category{font-size:0.6rem;text-transform:uppercase;letter-spacing:0.08em;padding:0.2rem 0.6rem;border-radius:4px;font-weight:600}
+.product-desc{font-size:0.88rem;color:var(--text-secondary);line-height:1.6;margin-bottom:0.75rem}
+.product-capabilities{display:flex;flex-wrap:wrap;gap:0.35rem;margin-bottom:0.75rem}
+.product-cap-tag{font-size:0.68rem;padding:0.2rem 0.55rem;border-radius:4px;background:var(--accent-dim);color:var(--text);font-weight:500}
+.product-insight{font-size:0.82rem;color:var(--text);line-height:1.55;padding:0.7rem;background:rgba(139,92,246,0.08);border-radius:6px;margin-bottom:0.5rem}
+.product-insight strong{font-weight:600}
+.product-meta{font-size:0.72rem;color:var(--text-secondary)}
+
+/* FOOTER */
+footer{text-align:center;padding:3rem 2rem;font-size:0.8rem;color:var(--text-secondary);border-top:1px solid var(--border)}
+footer a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav .nav-links{gap:0.7rem}nav .nav-links a{font-size:0.65rem}
+  .hero-stats{gap:1rem}.hero-stat .num{font-size:1.8rem}
+  .timeline-line{left:1.5rem}
+  .timeline-item,.timeline-item:nth-child(odd),.timeline-item:nth-child(even){flex-direction:row;padding-left:3rem}
+  .timeline-item:nth-child(odd) .tl-card,.timeline-item:nth-child(even) .tl-card{margin:0;text-align:left}
+  .tl-card-inner{max-width:100%}.tl-node{left:1.5rem}
+  .concepts-grid,.company-grid,.questions-grid,.products-grid{grid-template-columns:1fr}
 }
-
-.section-header h2 {
-  font-family: var(--font-serif);
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.75rem;
-}
-
-.section-header p {
-  color: var(--text-secondary);
-  max-width: 560px;
-  margin: 0 auto;
-  font-size: 1rem;
-}
-
-/* ============================================
-   FILTER PILLS
-   ============================================ */
-.filter-bar {
-  max-width: var(--container);
-  margin: 0 auto 2.5rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.filter-pill {
-  padding: 0.45rem 1rem;
-  border-radius: 100px;
-  border: 1.5px solid var(--border);
-  background: transparent;
-  font-family: var(--font-sans);
-  font-size: 0.78rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition: all var(--transition);
-  white-space: nowrap;
-}
-
-.filter-pill:hover {
-  border-color: var(--text-secondary);
-  color: var(--text);
-}
-
-.filter-pill.active {
-  background: var(--text);
-  border-color: var(--text);
-  color: var(--bg);
-}
-
-.filter-pill[data-act="1"].active { background: var(--act1); border-color: var(--act1); color: #fff; }
-.filter-pill[data-act="2"].active { background: var(--act2); border-color: var(--act2); color: #fff; }
-.filter-pill[data-act="3"].active { background: var(--act3); border-color: var(--act3); color: #fff; }
-.filter-pill[data-act="4"].active { background: var(--act4); border-color: var(--act4); color: #fff; }
-.filter-pill[data-act="5"].active { background: var(--act5); border-color: var(--act5); color: #fff; }
-.filter-pill[data-act="6"].active { background: var(--act6); border-color: var(--act6); color: #fff; }
-
-/* ============================================
-   TIMELINE
-   ============================================ */
-.timeline-container {
-  max-width: var(--container);
-  margin: 0 auto;
-  position: relative;
-}
-
-.timeline-line {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: var(--border);
-  transform: translateX(-50%);
-}
-
-.timeline-item {
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 3rem;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.timeline-item.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.timeline-item.hidden-filter {
-  display: none;
-}
-
-.timeline-item:nth-child(odd) { flex-direction: row; }
-.timeline-item:nth-child(even) { flex-direction: row-reverse; }
-
-.timeline-item:nth-child(odd) .tl-card { margin-right: calc(50% + 2rem); text-align: right; }
-.timeline-item:nth-child(even) .tl-card { margin-left: calc(50% + 2rem); text-align: left; }
-
-.tl-node {
-  position: absolute;
-  left: 50%;
-  top: 0.5rem;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: 3px solid var(--border);
-  background: var(--bg);
-  transform: translateX(-50%);
-  z-index: 2;
-  transition: all var(--transition);
-}
-
-.timeline-item:hover .tl-node {
-  transform: translateX(-50%) scale(1.4);
-  border-color: var(--accent);
-  box-shadow: 0 0 12px var(--accent-dim);
-}
-
-.timeline-item[data-act="1"] .tl-node { border-color: var(--act1); }
-.timeline-item[data-act="2"] .tl-node { border-color: var(--act2); }
-.timeline-item[data-act="3"] .tl-node { border-color: var(--act3); }
-.timeline-item[data-act="4"] .tl-node { border-color: var(--act4); }
-.timeline-item[data-act="5"] .tl-node { border-color: var(--act5); }
-.timeline-item[data-act="6"] .tl-node { border-color: var(--act6); }
-
-.tl-card {
-  width: 100%;
-  cursor: pointer;
-}
-
-.tl-card-inner {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1.5rem;
-  transition: all var(--transition);
-  display: inline-block;
-  max-width: 460px;
-  text-align: left;
-}
-
-.tl-card-inner:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-  border-color: var(--accent);
-}
-
-.tl-year {
-  font-family: var(--font-serif);
-  font-size: 0.85rem;
-  font-weight: 600;
-  display: inline-block;
-  padding: 0.15rem 0.6rem;
-  border-radius: 4px;
-  margin-bottom: 0.6rem;
-}
-
-.timeline-item[data-act="1"] .tl-year { background: rgba(224,123,76,0.12); color: var(--act1); }
-.timeline-item[data-act="2"] .tl-year { background: rgba(76,143,224,0.12); color: var(--act2); }
-.timeline-item[data-act="3"] .tl-year { background: rgba(139,92,246,0.12); color: var(--act3); }
-.timeline-item[data-act="4"] .tl-year { background: rgba(14,165,160,0.12); color: var(--act4); }
-.timeline-item[data-act="5"] .tl-year { background: rgba(224,76,122,0.12); color: var(--act5); }
-.timeline-item[data-act="6"] .tl-year { background: rgba(212,160,23,0.12); color: var(--act6); }
-
-.tl-act-label {
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-secondary);
-  margin-bottom: 0.2rem;
-}
-
-.tl-title {
-  font-family: var(--font-serif);
-  font-size: 1.25rem;
-  font-weight: 700;
-  line-height: 1.3;
-  margin-bottom: 0.3rem;
-  letter-spacing: -0.01em;
-}
-
-.tl-authors {
-  font-size: 0.78rem;
-  color: var(--text-secondary);
-  margin-bottom: 0.6rem;
-}
-
-.tl-desc {
-  font-size: 0.88rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
-
-.tl-link-hint {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  margin-top: 0.75rem;
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--text);
-  opacity: 0;
-  transform: translateX(-5px);
-  transition: all var(--transition);
-}
-
-.tl-link-hint svg { width: 12px; height: 12px; }
-
-.tl-card-inner:hover .tl-link-hint {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* ============================================
-   CONCEPTS
-   ============================================ */
-#concepts { background: var(--bg-card); }
-
-.search-box {
-  max-width: 400px;
-  margin: 0 auto 2rem;
-  position: relative;
-}
-
-.search-box input {
-  width: 100%;
-  padding: 0.7rem 1rem 0.7rem 2.5rem;
-  border: 1.5px solid var(--border);
-  border-radius: 100px;
-  background: var(--bg);
-  font-family: var(--font-sans);
-  font-size: 0.9rem;
-  color: var(--text);
-  outline: none;
-  transition: border-color var(--transition);
-}
-
-.search-box input:focus { border-color: var(--accent); }
-
-.search-box input::placeholder { color: #aaa; }
-
-.search-box svg {
-  position: absolute;
-  left: 0.9rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 16px;
-  height: 16px;
-  stroke: #aaa;
-}
-
-.concepts-grid {
-  max-width: var(--container);
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.25rem;
-}
-
-.concept-card {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1.5rem;
-  transition: all var(--transition);
-  cursor: default;
-}
-
-.concept-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 35px rgba(0,0,0,0.07);
-  border-color: var(--accent);
-}
-
-.concept-card.hidden-filter { display: none; }
-
-.concept-name {
-  font-family: var(--font-serif);
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.concept-tag {
-  font-family: var(--font-sans);
-  font-size: 0.6rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 0.15rem 0.5rem;
-  border-radius: 4px;
-  font-weight: 600;
-}
-
-.concept-desc {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  line-height: 1.65;
-  margin-bottom: 0.75rem;
-}
-
-.concept-why {
-  font-size: 0.82rem;
-  color: var(--text);
-  line-height: 1.55;
-  padding: 0.7rem;
-  background: var(--accent-dim);
-  border-radius: 6px;
-  margin-bottom: 0.75rem;
-}
-
-.concept-why strong { font-weight: 600; }
-
-.concept-origin {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  transition: color var(--transition);
-}
-
-.concept-origin:hover { color: var(--text); }
-.concept-origin svg { width: 12px; height: 12px; }
-
-/* ============================================
-   COMPANY MAP
-   ============================================ */
-.company-grid {
-  max-width: var(--container);
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.25rem;
-}
-
-.company-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1.5rem;
-  transition: all var(--transition);
-}
-
-.company-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.07);
-}
-
-.company-name {
-  font-family: var(--font-serif);
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin-bottom: 0.2rem;
-}
-
-.company-bet {
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-  margin-bottom: 1rem;
-  font-style: italic;
-}
-
-.company-detail {
-  font-size: 0.82rem;
-  margin-bottom: 0.5rem;
-}
-
-.company-detail strong {
-  display: block;
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-secondary);
-  margin-bottom: 0.15rem;
-}
-
-.company-bar {
-  height: 3px;
-  border-radius: 2px;
-  margin-bottom: 1rem;
-}
-
-/* ============================================
-   FOOTER
-   ============================================ */
-footer {
-  text-align: center;
-  padding: 3rem 2rem;
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  border-top: 1px solid var(--border);
-}
-
-footer a {
-  color: var(--text);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-/* ============================================
-   RESPONSIVE
-   ============================================ */
-@media (max-width: 768px) {
-  nav .nav-links { gap: 1rem; }
-  nav .nav-links a { font-size: 0.7rem; }
-
-  .hero-stats { gap: 1.5rem; }
-  .hero-stat .num { font-size: 2rem; }
-
-  .timeline-line { left: 1.5rem; }
-
-  .timeline-item,
-  .timeline-item:nth-child(odd),
-  .timeline-item:nth-child(even) {
-    flex-direction: row;
-    padding-left: 3rem;
-  }
-
-  .timeline-item:nth-child(odd) .tl-card,
-  .timeline-item:nth-child(even) .tl-card {
-    margin: 0;
-    text-align: left;
-  }
-
-  .tl-card-inner { max-width: 100%; }
-
-  .tl-node {
-    left: 1.5rem;
-  }
-
-  .concepts-grid { grid-template-columns: 1fr; }
-  .company-grid { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 480px) {
-  .hero h1 { font-size: 2.2rem; }
-  nav .nav-links { gap: 0.6rem; }
-  .hero-stats { flex-direction: column; gap: 0.8rem; }
-}
+@media(max-width:480px){.hero h1{font-size:2.2rem}nav .nav-links{gap:0.5rem}.hero-stats{flex-direction:column;gap:0.8rem}}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="nav-inner">
     <div class="nav-logo">AI Timeline</div>
     <ul class="nav-links">
-      <li><a href="#timeline">Timeline</a></li>
+      <li><a href="#timeline">Trunk</a></li>
+      <li><a href="#branch-map">Branches</a></li>
+      <li><a href="#branch-timeline">Branch Papers</a></li>
       <li><a href="#concepts">Concepts</a></li>
+      <li><a href="#questions">Open Questions</a></li>
+      <li><a href="#products">Products</a></li>
       <li><a href="#strategies">Strategies</a></li>
     </ul>
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-content">
-    <h1>23 Papers That Shaped <span>Modern AI</span></h1>
-    <p>An interactive journey through the breakthrough research that built the AI systems we use today — from the Transformer's invention to frontier reasoning models.</p>
+    <h1>The Full Map of <span>Modern AI</span></h1>
+    <p>From the LLM trunk to world models, robotics, AI for science, and beyond. 45 landmark papers, 10 open questions, and the products riding the wave.</p>
     <div class="hero-stats">
-      <div class="hero-stat">
-        <div class="num">23</div>
-        <div class="label">Papers</div>
-      </div>
-      <div class="hero-stat">
-        <div class="num">2017–25</div>
-        <div class="label">Timeline</div>
-      </div>
-      <div class="hero-stat">
-        <div class="num">18</div>
-        <div class="label">Key Concepts</div>
-      </div>
-      <div class="hero-stat">
-        <div class="num">6</div>
-        <div class="label">Companies</div>
-      </div>
+      <div class="hero-stat"><div class="num">45</div><div class="label">Papers</div></div>
+      <div class="hero-stat"><div class="num">7</div><div class="label">Branches</div></div>
+      <div class="hero-stat"><div class="num">10</div><div class="label">Open Questions</div></div>
+      <div class="hero-stat"><div class="num">10</div><div class="label">AI Products</div></div>
     </div>
   </div>
   <div class="scroll-hint">
@@ -729,27 +243,57 @@ footer a {
   </div>
 </section>
 
-<!-- TIMELINE -->
+<!-- TRUNK TIMELINE -->
 <section id="timeline">
   <div class="section-header">
-    <h2>The Timeline</h2>
-    <p>Each node is a breakthrough. Click to read the original paper.</p>
+    <h2>The LLM Trunk</h2>
+    <p>23 breakthrough papers that built the language model paradigm. Click any node to read the original paper.</p>
   </div>
-
   <div class="filter-bar" id="timeline-filters">
     <button class="filter-pill active" data-act="all">All</button>
-    <button class="filter-pill" data-act="1">Act 1 — Foundation</button>
-    <button class="filter-pill" data-act="2">Act 2 — Alignment</button>
-    <button class="filter-pill" data-act="3">Act 3 — Scaling Race</button>
-    <button class="filter-pill" data-act="4">Act 4 — Efficiency</button>
-    <button class="filter-pill" data-act="5">Act 5 — Reasoning</button>
-    <button class="filter-pill" data-act="6">Act 6 — Safety &amp; Frontier</button>
+    <button class="filter-pill" data-act="1">Foundation</button>
+    <button class="filter-pill" data-act="2">Alignment</button>
+    <button class="filter-pill" data-act="3">Scaling Race</button>
+    <button class="filter-pill" data-act="4">Efficiency</button>
+    <button class="filter-pill" data-act="5">Reasoning</button>
+    <button class="filter-pill" data-act="6">Safety &amp; Frontier</button>
   </div>
+  <div class="timeline-container" id="trunk-timeline"><div class="timeline-line"></div></div>
+</section>
 
-  <div class="timeline-container">
-    <div class="timeline-line"></div>
-    <!-- Items injected by JS -->
+<!-- BRANCH MAP -->
+<section id="branch-map">
+  <div class="section-header">
+    <h2>The AI Landscape</h2>
+    <p>The LLM trunk is only part of the story. Zoom and pan to explore the full tree of AI research.</p>
   </div>
+  <div class="branch-map-wrap" id="map-wrap">
+    <svg id="branch-svg" viewBox="0 0 1100 820" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div class="branch-map-controls">
+      <button id="zoom-in" title="Zoom in">+</button>
+      <button id="zoom-out" title="Zoom out">&minus;</button>
+      <button id="zoom-reset" title="Reset view">&#8634;</button>
+    </div>
+  </div>
+  <div class="branch-legend" id="branch-legend"></div>
+</section>
+
+<!-- BRANCH TIMELINE -->
+<section id="branch-timeline">
+  <div class="section-header">
+    <h2>Branch Papers</h2>
+    <p>22 landmark papers across the six branches beyond LLMs.</p>
+  </div>
+  <div class="filter-bar" id="branch-filters">
+    <button class="filter-pill active" data-branch="all">All</button>
+    <button class="filter-pill" data-branch="world-models">World Models</button>
+    <button class="filter-pill" data-branch="robotics">Robotics</button>
+    <button class="filter-pill" data-branch="ai-science">AI for Science</button>
+    <button class="filter-pill" data-branch="diffusion">Diffusion / Video</button>
+    <button class="filter-pill" data-branch="neuromorphic">Neuromorphic</button>
+    <button class="filter-pill" data-branch="agents">Agents</button>
+  </div>
+  <div class="timeline-container" id="branch-tl-container"><div class="timeline-line"></div></div>
 </section>
 
 <!-- CONCEPTS -->
@@ -758,556 +302,338 @@ footer a {
     <h2>Key Concepts</h2>
     <p>The vocabulary you need to follow AI research and use AI tools effectively.</p>
   </div>
-
   <div class="search-box">
     <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-    <input type="text" id="concept-search" placeholder="Search concepts…">
+    <input type="text" id="concept-search" placeholder="Search concepts...">
   </div>
-
-  <div class="concepts-grid" id="concepts-grid">
-    <!-- Cards injected by JS -->
-  </div>
+  <div class="concepts-grid" id="concepts-grid"></div>
 </section>
 
-<!-- COMPANY STRATEGIES -->
+<!-- OPEN QUESTIONS -->
+<section id="questions">
+  <div class="section-header">
+    <h2>Open Questions</h2>
+    <p>The unsolved problems driving the next wave of AI breakthroughs.</p>
+  </div>
+  <div class="questions-grid" id="questions-grid"></div>
+</section>
+
+<!-- AI-NATIVE PRODUCTS -->
+<section id="products">
+  <div class="section-header">
+    <h2>AI-Native Products</h2>
+    <p>Companies that built their core product on top of AI capabilities. What they rode, why they won.</p>
+  </div>
+  <div class="products-grid" id="products-grid"></div>
+</section>
+
+<!-- STRATEGIES -->
 <section id="strategies">
   <div class="section-header">
     <h2>Company Strategies</h2>
     <p>How the major players are placing their bets differently.</p>
   </div>
-
-  <div class="company-grid" id="company-grid">
-    <!-- Cards injected by JS -->
-  </div>
+  <div class="company-grid" id="company-grid"></div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <p>Built with curiosity. Data sourced from arXiv and original publications.<br>
+  <p>Built with curiosity. Data sourced from arXiv, Nature, and original publications.<br>
   <a href="https://yuhuang.work">yuhuang.work</a></p>
 </footer>
 
 <script>
 /* ============================================
-   DATA
+   DATA: TRUNK PAPERS (23)
    ============================================ */
-const papers = [
-  {
-    id: 1, act: 1, year: 2017,
-    actLabel: "Act 1 — Foundation",
-    title: "Attention Is All You Need",
-    authors: "Vaswani et al., Google",
-    desc: "Introduced the Transformer architecture — processing words in parallel via \"attention\" instead of one-by-one. The foundation of every modern AI model.",
-    url: "https://arxiv.org/abs/1706.03762"
-  },
-  {
-    id: 2, act: 1, year: 2020,
-    actLabel: "Act 1 — Foundation",
-    title: "Language Models are Few-Shot Learners (GPT-3)",
-    authors: "Brown et al., OpenAI",
-    desc: "Scaled to 175B parameters and discovered that large models can perform new tasks from just a few examples in the prompt — the birth of \"prompting\" as a skill.",
-    url: "https://arxiv.org/abs/2005.14165"
-  },
-  {
-    id: 3, act: 1, year: 2020,
-    actLabel: "Act 1 — Foundation",
-    title: "Scaling Laws for Neural Language Models",
-    authors: "Kaplan et al., OpenAI",
-    desc: "Discovered predictable power-law relationships between model size, data, compute, and performance. Explained why the AI race became a spending race.",
-    url: "https://arxiv.org/abs/2001.08361"
-  },
-  {
-    id: 4, act: 2, year: 2022,
-    actLabel: "Act 2 — Alignment",
-    title: "Training Compute-Optimal Large Language Models (Chinchilla)",
-    authors: "Hoffmann et al., DeepMind",
-    desc: "Overturned scaling wisdom: most models were undertrained. A 70B model trained on more data beat a 280B model — size isn't everything.",
-    url: "https://arxiv.org/abs/2203.15556"
-  },
-  {
-    id: 5, act: 2, year: 2022,
-    actLabel: "Act 2 — Alignment",
-    title: "Training Language Models to Follow Instructions (InstructGPT)",
-    authors: "Ouyang et al., OpenAI",
-    desc: "Introduced RLHF — the technique that made ChatGPT possible. A 1.3B aligned model was preferred over the 175B raw GPT-3.",
-    url: "https://arxiv.org/abs/2203.02155"
-  },
-  {
-    id: 6, act: 2, year: 2022,
-    actLabel: "Act 2 — Alignment",
-    title: "Training a Helpful and Harmless Assistant with RLHF",
-    authors: "Bai et al., Anthropic",
-    desc: "Showed RLHF actually improves model capability, not just safety. Explored the fundamental tension between helpfulness and harmlessness that defines Claude's personality.",
-    url: "https://arxiv.org/abs/2204.05862"
-  },
-  {
-    id: 7, act: 3, year: 2023,
-    actLabel: "Act 3 — Scaling Race",
-    title: "GPT-4 Technical Report",
-    authors: "OpenAI",
-    desc: "First multimodal model to pass the bar exam (top 10%). Its deliberate secrecy about architecture marked the shift from open research to commercial competition.",
-    url: "https://arxiv.org/abs/2303.08774"
-  },
-  {
-    id: 8, act: 3, year: 2023,
-    actLabel: "Act 3 — Scaling Race",
-    title: "LLaMA: Open and Efficient Foundation Language Models",
-    authors: "Touvron et al., Meta",
-    desc: "Trained on only public data; the 13B model outperformed GPT-3 (175B). Ignited the open-source AI revolution when weights leaked publicly.",
-    url: "https://arxiv.org/abs/2302.13971"
-  },
-  {
-    id: 9, act: 3, year: 2023,
-    actLabel: "Act 3 — Scaling Race",
-    title: "Llama 2: Open Foundation and Fine-Tuned Chat Models",
-    authors: "Touvron et al., Meta",
-    desc: "Meta's strategic bet: open-source the model layer to commoditize it. Included the most detailed public account of AI safety training.",
-    url: "https://arxiv.org/abs/2307.09288"
-  },
-  {
-    id: 10, act: 3, year: 2023,
-    actLabel: "Act 3 — Scaling Race",
-    title: "Gemini: A Family of Highly Capable Multimodal Models",
-    authors: "Google DeepMind",
-    desc: "Google's natively multimodal answer to GPT-4 — trained from the ground up on text, images, audio, and video simultaneously.",
-    url: "https://arxiv.org/abs/2312.11805"
-  },
-  {
-    id: 11, act: 4, year: 2021,
-    actLabel: "Act 4 — Efficiency",
-    title: "Switch Transformers: Scaling to Trillion Parameter Models",
-    authors: "Fedus, Zoph, Shazeer, Google",
-    desc: "Made Mixture of Experts practical: route each token to the best expert sub-network. Trillion parameters, constant compute. Now the dominant frontier architecture.",
-    url: "https://arxiv.org/abs/2101.03961"
-  },
-  {
-    id: 12, act: 4, year: 2024,
-    actLabel: "Act 4 — Efficiency",
-    title: "Mixtral of Experts",
-    authors: "Jiang et al., Mistral AI",
-    desc: "47B total params, only 13B active — matched GPT-3.5 at a fraction of the cost. The European AI champion proving you don't need billions to compete.",
-    url: "https://arxiv.org/abs/2401.04088"
-  },
-  {
-    id: 13, act: 4, year: 2023,
-    actLabel: "Act 4 — Efficiency",
-    title: "Mamba: Linear-Time Sequence Modeling",
-    authors: "Gu & Dao",
-    desc: "The most serious challenger to the Transformer — state space models with linear scaling and 5× higher throughput. The Transformer may not be the final answer.",
-    url: "https://arxiv.org/abs/2312.00752"
-  },
-  {
-    id: 14, act: 5, year: 2022,
-    actLabel: "Act 5 — Reasoning",
-    title: "Chain-of-Thought Prompting Elicits Reasoning",
-    authors: "Wei et al., Google",
-    desc: "Simply asking a model to \"show its work\" dramatically improved reasoning. The most practically useful paper — it immediately makes you better at prompting.",
-    url: "https://arxiv.org/abs/2201.11903"
-  },
-  {
-    id: 15, act: 5, year: 2023,
-    actLabel: "Act 5 — Reasoning",
-    title: "Direct Preference Optimization (DPO)",
-    authors: "Rafailov et al., Stanford",
-    desc: "Replaced the complex RLHF pipeline with a simple loss function. Dramatically lowered the barrier to aligning models — democratized the open-source ecosystem.",
-    url: "https://arxiv.org/abs/2305.18290"
-  },
-  {
-    id: 16, act: 5, year: 2024,
-    actLabel: "Act 5 — Reasoning",
-    title: "Scaling LLM Test-Time Compute Optimally",
-    authors: "Snell et al., Google DeepMind",
-    desc: "A small model that \"thinks longer\" can match one 14× larger. The paradigm shift from \"train bigger\" to \"think harder\" — why you now see \"thinking\" in AI products.",
-    url: "https://arxiv.org/abs/2408.03314"
-  },
-  {
-    id: 17, act: 5, year: 2025,
-    actLabel: "Act 5 — Reasoning",
-    title: "DeepSeek-R1: Incentivizing Reasoning via RL",
-    authors: "DeepSeek-AI (Nature, Vol. 645)",
-    desc: "Reasoning emerged spontaneously from pure RL — no human examples needed. A ~$6M budget rivaled OpenAI. The \"Sputnik moment\" that triggered a $600B Nvidia drop.",
-    url: "https://arxiv.org/abs/2501.12948"
-  },
-  {
-    id: 18, act: 6, year: 2020,
-    actLabel: "Act 6 — Safety & Frontier",
-    title: "Retrieval-Augmented Generation (RAG)",
-    authors: "Lewis et al., Meta/UCL",
-    desc: "Search first, then answer — grounding responses in retrieved documents. Now the most widely deployed technique against hallucination in every enterprise AI product.",
-    url: "https://arxiv.org/abs/2005.11401"
-  },
-  {
-    id: 19, act: 6, year: 2022,
-    actLabel: "Act 6 — Safety & Frontier",
-    title: "Scaling Instruction-Finetuned Language Models (Flan)",
-    authors: "Chung et al., Google",
-    desc: "Instruction tuning is what turns a raw language model into something you can have a conversation with. Mixing in chain-of-thought data makes models better reasoners.",
-    url: "https://arxiv.org/abs/2210.11416"
-  },
-  {
-    id: 20, act: 6, year: 2024,
-    actLabel: "Act 6 — Safety & Frontier",
-    title: "DeepSeek-V3 Technical Report",
-    authors: "DeepSeek-AI",
-    desc: "671B MoE model, 37B active, trained for ~$6M. Matched frontier closed-source models. Clearest evidence that the cost of frontier AI is plummeting.",
-    url: "https://arxiv.org/abs/2412.19437"
-  },
-  {
-    id: 21, act: 6, year: 2024,
-    actLabel: "Act 6 — Safety & Frontier",
-    title: "Alignment Faking in Large Language Models",
-    authors: "Greenblatt et al., Anthropic",
-    desc: "Claude 3 Opus strategically faked compliance during training to avoid being retrained. The model's reasoning transcripts read like a thriller. Most important safety paper in years.",
-    url: "https://arxiv.org/abs/2412.14093"
-  },
-  {
-    id: 22, act: 6, year: 2023,
-    actLabel: "Act 6 — Safety & Frontier",
-    title: "Towards Monosemanticity",
-    authors: "Anthropic",
-    desc: "First time anyone \"looked inside\" a large model and identified individual concepts it learned. The path to auditing AI systems for deceptive or harmful representations.",
-    url: "https://transformer-circuits.pub/2023/monosemantic-features/index.html"
-  },
-  {
-    id: 23, act: 6, year: 2024,
-    actLabel: "Act 6 — Safety & Frontier",
-    title: "The Llama 3 Herd of Models",
-    authors: "Grattafiori et al., Meta",
-    desc: "405B open-weight model matching GPT-4 — the most detailed public account of building a frontier AI system. The culmination of Meta's bet that open models win.",
-    url: "https://arxiv.org/abs/2407.21783"
-  }
-];
-
-const concepts = [
-  {
-    name: "Transformer",
-    desc: "The architecture behind all major LLMs. Processes text in parallel using an \"attention\" mechanism where the model learns which words are relevant to which other words.",
-    why: "It's the engine in every AI tool you use — ChatGPT, Claude, Gemini, Copilot.",
-    origin: "Attention Is All You Need (2017)",
-    originUrl: "https://arxiv.org/abs/1706.03762",
-    category: "architecture"
-  },
-  {
-    name: "Attention",
-    desc: "The mechanism where the model weighs how important each word is to every other word in a passage. Allows models to find relevant connections across long texts.",
-    why: "Explains why models are great at synthesizing information but struggle with precise counting or strict sequential logic.",
-    origin: "Attention Is All You Need (2017)",
-    originUrl: "https://arxiv.org/abs/1706.03762",
-    category: "architecture"
-  },
-  {
-    name: "Parameters",
-    desc: "The learned numbers in a model — typically billions to trillions. Adjusted during training to encode knowledge and capabilities.",
-    why: "A rough proxy for capability, but architecture and training quality matter more. A well-trained 70B model can beat a poorly trained 280B one.",
-    origin: "Scaling Laws (2020)",
-    originUrl: "https://arxiv.org/abs/2001.08361",
-    category: "fundamentals"
-  },
-  {
-    name: "Tokens",
-    desc: "The word-pieces a model actually processes — roughly 4 characters each. \"ChatGPT\" might be split into \"Chat\" + \"G\" + \"PT\".",
-    why: "API pricing is per-token. Context limits are measured in tokens. Understanding tokenization helps you prompt more efficiently.",
-    origin: "GPT-3 (2020)",
-    originUrl: "https://arxiv.org/abs/2005.14165",
-    category: "fundamentals"
-  },
-  {
-    name: "Context Window",
-    desc: "The maximum text a model can \"see\" at once — ranging from 4K to 2M+ tokens. Everything beyond this window is invisible to the model.",
-    why: "Determines how much information you can feed in. Longer isn't always better — models may lose focus in very long contexts.",
-    origin: "GPT-3 (2020)",
-    originUrl: "https://arxiv.org/abs/2005.14165",
-    category: "fundamentals"
-  },
-  {
-    name: "Pre-training",
-    desc: "The massive initial training phase where a model learns to predict the next word from internet-scale text (trillions of tokens). This is where base knowledge and abilities are acquired.",
-    why: "Gives the model its general knowledge. Everything it \"knows\" about the world comes from this phase.",
-    origin: "GPT-3 (2020)",
-    originUrl: "https://arxiv.org/abs/2005.14165",
-    category: "training"
-  },
-  {
-    name: "Fine-tuning",
-    desc: "Smaller, targeted additional training that specializes a base model for specific tasks or behaviors — like instruction-following, coding, or medical knowledge.",
-    why: "How models get customized. When you see \"fine-tuned for code\" or \"medical AI,\" this is the technique.",
-    origin: "InstructGPT (2022)",
-    originUrl: "https://arxiv.org/abs/2203.02155",
-    category: "training"
-  },
-  {
-    name: "RLHF",
-    desc: "Reinforcement Learning from Human Feedback. Humans rank model outputs by preference; the model learns from these rankings to be more helpful, harmless, and honest.",
-    why: "The technique that made ChatGPT feel conversational. Explains why models have different \"personalities\" and why they sometimes refuse requests.",
-    origin: "InstructGPT (2022)",
-    originUrl: "https://arxiv.org/abs/2203.02155",
-    category: "training"
-  },
-  {
-    name: "DPO",
-    desc: "Direct Preference Optimization — a simpler alternative to RLHF that achieves similar alignment using a basic classification loss instead of complex reinforcement learning.",
-    why: "Democratized model alignment. Dramatically lowered the barrier for open-source models to become helpful and safe.",
-    origin: "DPO Paper (2023)",
-    originUrl: "https://arxiv.org/abs/2305.18290",
-    category: "training"
-  },
-  {
-    name: "Chain-of-Thought",
-    desc: "A prompting technique where the model shows step-by-step reasoning before giving a final answer. Can be prompted (\"think step by step\") or trained into the model.",
-    why: "The single most useful prompting technique. Use it for math, logic, analysis — any task that benefits from breaking into steps.",
-    origin: "Chain-of-Thought Prompting (2022)",
-    originUrl: "https://arxiv.org/abs/2201.11903",
-    category: "technique"
-  },
-  {
-    name: "Test-Time Compute",
-    desc: "Spending more computation when generating answers (\"thinking harder\") rather than just using a bigger model. The model allocates more processing to harder problems.",
-    why: "Why \"thinking\" models (o1, o3, DeepSeek-R1) are slower but smarter. For products: trade latency for quality.",
-    origin: "Scaling Test-Time Compute (2024)",
-    originUrl: "https://arxiv.org/abs/2408.03314",
-    category: "technique"
-  },
-  {
-    name: "Mixture of Experts",
-    desc: "An architecture where only a fraction of the model's parameters activate per query. A \"router\" sends each token to the most relevant expert sub-networks.",
-    why: "Why models can be very large but still fast and affordable. GPT-4, Gemini, DeepSeek-V3, and Llama 4 all use MoE.",
-    origin: "Switch Transformers (2021)",
-    originUrl: "https://arxiv.org/abs/2101.03961",
-    category: "architecture"
-  },
-  {
-    name: "RAG",
-    desc: "Retrieval-Augmented Generation — searching a knowledge base for relevant documents before generating an answer, grounding the response in real sources.",
-    why: "The primary technique for reducing hallucination. Every enterprise chatbot and products like Perplexity use RAG.",
-    origin: "RAG Paper (2020)",
-    originUrl: "https://arxiv.org/abs/2005.11401",
-    category: "technique"
-  },
-  {
-    name: "Hallucination",
-    desc: "When a model confidently generates false or fabricated information — inventing facts, citations, or details that don't exist.",
-    why: "The biggest limitation of current LLMs. RAG and chain-of-thought help reduce it, but don't fully solve it.",
-    origin: "GPT-4 Technical Report (2023)",
-    originUrl: "https://arxiv.org/abs/2303.08774",
-    category: "challenge"
-  },
-  {
-    name: "Alignment",
-    desc: "The process of making AI models behave as humans intend — being helpful when asked, refusing harmful requests, and being honest about uncertainty.",
-    why: "The central unsolved problem of AI safety. Models may learn to fake alignment, as demonstrated by Anthropic's research.",
-    origin: "Anthropic RLHF (2022)",
-    originUrl: "https://arxiv.org/abs/2204.05862",
-    category: "challenge"
-  },
-  {
-    name: "Scaling Laws",
-    desc: "Mathematical relationships showing that model performance improves predictably with more compute, data, and parameters — following power-law curves.",
-    why: "Explains the AI spending race and why companies invest billions. Also explains the cost-capability tradeoff of smaller models.",
-    origin: "Scaling Laws Paper (2020)",
-    originUrl: "https://arxiv.org/abs/2001.08361",
-    category: "fundamentals"
-  },
-  {
-    name: "Distillation",
-    desc: "Transferring a large model's knowledge into a smaller one — the student model learns to mimic the teacher's outputs rather than training from scratch.",
-    why: "How frontier capabilities reach phones and edge devices. DeepSeek-R1's reasoning was distilled into models 20× smaller.",
-    origin: "DeepSeek-R1 (2025)",
-    originUrl: "https://arxiv.org/abs/2501.12948",
-    category: "technique"
-  },
-  {
-    name: "Interpretability",
-    desc: "Research into understanding what's happening inside neural networks — identifying what individual neurons or circuits represent and how they produce outputs.",
-    why: "The path to verifiable AI safety. If you can look inside a model, you can check for deceptive or harmful patterns.",
-    origin: "Towards Monosemanticity (2023)",
-    originUrl: "https://transformer-circuits.pub/2023/monosemantic-features/index.html",
-    category: "challenge"
-  }
-];
-
-const companies = [
-  {
-    name: "OpenAI",
-    color: "#1a1a2e",
-    bet: "Full-stack platform + reasoning models (o1 / o3 / GPT-5)",
-    papers: "#2 GPT-3, #3 Scaling Laws, #5 InstructGPT, #7 GPT-4",
-    advantage: "First-mover brand recognition, massive enterprise distribution, $852B valuation",
-    approach: "Closed-source, vertical integration, aggressive commercialization"
-  },
-  {
-    name: "Google / DeepMind",
-    color: "#4285f4",
-    bet: "Multimodal AI + distribution across Search, Android, Workspace",
-    papers: "#1 Transformer, #4 Chinchilla, #10 Gemini, #11 Switch Transformers, #14 CoT, #16 Test-Time Compute, #19 Flan",
-    advantage: "2B+ device distribution, deepest research bench, Nobel Prize (AlphaFold)",
-    approach: "Natively multimodal models, integrated into existing products, strong research publication"
-  },
-  {
-    name: "Anthropic",
-    color: "#d4a373",
-    bet: "Safety-first research + developer tools (MCP protocol, Claude Code)",
-    papers: "#6 RLHF, #21 Alignment Faking, #22 Monosemanticity",
-    advantage: "Safety research leadership, MCP became industry standard protocol, $380B valuation",
-    approach: "Constitutional AI, interpretability research, responsible scaling, developer ecosystem"
-  },
-  {
-    name: "Meta",
-    color: "#0668E1",
-    bet: "Open-weight models to commoditize the model layer",
-    papers: "#8 LLaMA, #9 Llama 2, #18 RAG, #23 Llama 3",
-    advantage: "Massive open-source ecosystem, social platform data, 100+ community models built on Llama",
-    approach: "Open weights, community-driven, strategic commoditization to protect ad business"
-  },
-  {
-    name: "DeepSeek",
-    color: "#00a67e",
-    bet: "Maximum efficiency through algorithmic innovation",
-    papers: "#17 DeepSeek-R1, #20 DeepSeek-V3",
-    advantage: "Proved frontier AI doesn't require huge budgets (~$6M training cost, ~160 employees)",
-    approach: "Efficient MoE architectures, MIT-licensed, pure RL for reasoning, lean team"
-  },
-  {
-    name: "Mistral",
-    color: "#ff6f00",
-    bet: "Efficient MoE models and European AI sovereignty",
-    papers: "#12 Mixtral of Experts",
-    advantage: "European regulatory advantage, Apache-licensed models, efficiency leadership",
-    approach: "Sparse MoE architecture, open + commercial hybrid, lean European operation"
-  }
+const trunkPapers=[
+{id:1,act:1,year:2017,actLabel:"Foundation",title:"Attention Is All You Need",authors:"Vaswani et al., Google",desc:"Introduced the Transformer architecture \u2014 processing words in parallel via \"attention\" instead of one-by-one. The foundation of every modern AI model.",url:"https://arxiv.org/abs/1706.03762"},
+{id:2,act:1,year:2020,actLabel:"Foundation",title:"Language Models are Few-Shot Learners (GPT-3)",authors:"Brown et al., OpenAI",desc:"Scaled to 175B parameters and discovered that large models can perform new tasks from just a few examples in the prompt \u2014 the birth of \"prompting\" as a skill.",url:"https://arxiv.org/abs/2005.14165"},
+{id:3,act:1,year:2020,actLabel:"Foundation",title:"Scaling Laws for Neural Language Models",authors:"Kaplan et al., OpenAI",desc:"Discovered predictable power-law relationships between model size, data, compute, and performance. Explained why the AI race became a spending race.",url:"https://arxiv.org/abs/2001.08361"},
+{id:4,act:2,year:2022,actLabel:"Alignment",title:"Training Compute-Optimal Large Language Models (Chinchilla)",authors:"Hoffmann et al., DeepMind",desc:"Overturned scaling wisdom: most models were undertrained. A 70B model trained on more data beat a 280B model \u2014 size isn\u2019t everything.",url:"https://arxiv.org/abs/2203.15556"},
+{id:5,act:2,year:2022,actLabel:"Alignment",title:"Training Language Models to Follow Instructions (InstructGPT)",authors:"Ouyang et al., OpenAI",desc:"Introduced RLHF \u2014 the technique that made ChatGPT possible. A 1.3B aligned model was preferred over the 175B raw GPT-3.",url:"https://arxiv.org/abs/2203.02155"},
+{id:6,act:2,year:2022,actLabel:"Alignment",title:"Training a Helpful and Harmless Assistant with RLHF",authors:"Bai et al., Anthropic",desc:"Showed RLHF actually improves model capability, not just safety. Explored the fundamental tension between helpfulness and harmlessness.",url:"https://arxiv.org/abs/2204.05862"},
+{id:7,act:3,year:2023,actLabel:"Scaling Race",title:"GPT-4 Technical Report",authors:"OpenAI",desc:"First multimodal model to pass the bar exam (top 10%). Its deliberate secrecy marked the shift from open research to commercial competition.",url:"https://arxiv.org/abs/2303.08774"},
+{id:8,act:3,year:2023,actLabel:"Scaling Race",title:"LLaMA: Open and Efficient Foundation Language Models",authors:"Touvron et al., Meta",desc:"Trained on only public data; the 13B model outperformed GPT-3 (175B). Ignited the open-source AI revolution.",url:"https://arxiv.org/abs/2302.13971"},
+{id:9,act:3,year:2023,actLabel:"Scaling Race",title:"Llama 2: Open Foundation and Fine-Tuned Chat Models",authors:"Touvron et al., Meta",desc:"Meta\u2019s strategic bet: open-source the model layer to commoditize it. Most detailed public account of AI safety training.",url:"https://arxiv.org/abs/2307.09288"},
+{id:10,act:3,year:2023,actLabel:"Scaling Race",title:"Gemini: A Family of Highly Capable Multimodal Models",authors:"Google DeepMind",desc:"Google\u2019s natively multimodal answer to GPT-4 \u2014 trained from the ground up on text, images, audio, and video simultaneously.",url:"https://arxiv.org/abs/2312.11805"},
+{id:11,act:4,year:2021,actLabel:"Efficiency",title:"Switch Transformers: Scaling to Trillion Parameter Models",authors:"Fedus, Zoph, Shazeer, Google",desc:"Made Mixture of Experts practical: route each token to the best expert sub-network. Trillion parameters, constant compute.",url:"https://arxiv.org/abs/2101.03961"},
+{id:12,act:4,year:2024,actLabel:"Efficiency",title:"Mixtral of Experts",authors:"Jiang et al., Mistral AI",desc:"47B total params, only 13B active \u2014 matched GPT-3.5 at a fraction of the cost. European AI champion.",url:"https://arxiv.org/abs/2401.04088"},
+{id:13,act:4,year:2023,actLabel:"Efficiency",title:"Mamba: Linear-Time Sequence Modeling",authors:"Gu & Dao",desc:"The most serious challenger to the Transformer \u2014 state space models with linear scaling and 5\u00d7 higher throughput.",url:"https://arxiv.org/abs/2312.00752"},
+{id:14,act:5,year:2022,actLabel:"Reasoning",title:"Chain-of-Thought Prompting Elicits Reasoning",authors:"Wei et al., Google",desc:"Simply asking a model to \"show its work\" dramatically improved reasoning. The most practically useful prompting technique.",url:"https://arxiv.org/abs/2201.11903"},
+{id:15,act:5,year:2023,actLabel:"Reasoning",title:"Direct Preference Optimization (DPO)",authors:"Rafailov et al., Stanford",desc:"Replaced the complex RLHF pipeline with a simple loss function. Dramatically lowered the barrier to aligning models.",url:"https://arxiv.org/abs/2305.18290"},
+{id:16,act:5,year:2024,actLabel:"Reasoning",title:"Scaling LLM Test-Time Compute Optimally",authors:"Snell et al., Google DeepMind",desc:"A small model that \"thinks longer\" can match one 14\u00d7 larger. The paradigm shift from \"train bigger\" to \"think harder\".",url:"https://arxiv.org/abs/2408.03314"},
+{id:17,act:5,year:2025,actLabel:"Reasoning",title:"DeepSeek-R1: Incentivizing Reasoning via RL",authors:"DeepSeek-AI (Nature, Vol. 645)",desc:"Reasoning emerged spontaneously from pure RL \u2014 no human examples needed. The \"Sputnik moment\" of AI.",url:"https://arxiv.org/abs/2501.12948"},
+{id:18,act:6,year:2020,actLabel:"Safety & Frontier",title:"Retrieval-Augmented Generation (RAG)",authors:"Lewis et al., Meta/UCL",desc:"Search first, then answer \u2014 grounding responses in retrieved documents. The most deployed technique against hallucination.",url:"https://arxiv.org/abs/2005.11401"},
+{id:19,act:6,year:2022,actLabel:"Safety & Frontier",title:"Scaling Instruction-Finetuned Language Models (Flan)",authors:"Chung et al., Google",desc:"Instruction tuning turns a raw language model into something you can converse with. Chain-of-thought data makes models better reasoners.",url:"https://arxiv.org/abs/2210.11416"},
+{id:20,act:6,year:2024,actLabel:"Safety & Frontier",title:"DeepSeek-V3 Technical Report",authors:"DeepSeek-AI",desc:"671B MoE model, 37B active, trained for ~$6M. Matched frontier closed-source models. Cost of frontier AI is plummeting.",url:"https://arxiv.org/abs/2412.19437"},
+{id:21,act:6,year:2024,actLabel:"Safety & Frontier",title:"Alignment Faking in Large Language Models",authors:"Greenblatt et al., Anthropic",desc:"Claude 3 Opus strategically faked compliance during training. The model\u2019s reasoning transcripts read like a thriller.",url:"https://arxiv.org/abs/2412.14093"},
+{id:22,act:6,year:2023,actLabel:"Safety & Frontier",title:"Towards Monosemanticity",authors:"Anthropic",desc:"First time anyone \"looked inside\" a large model and identified individual concepts it learned. Path to auditing AI systems.",url:"https://transformer-circuits.pub/2023/monosemantic-features/index.html"},
+{id:23,act:6,year:2024,actLabel:"Safety & Frontier",title:"The Llama 3 Herd of Models",authors:"Grattafiori et al., Meta",desc:"405B open-weight model matching GPT-4 \u2014 most detailed public account of building a frontier AI system.",url:"https://arxiv.org/abs/2407.21783"}
 ];
 
 /* ============================================
-   RENDER TIMELINE
+   DATA: BRANCH PAPERS (22)
    ============================================ */
-const timelineContainer = document.querySelector('.timeline-container');
-
-// Sort papers by year for timeline display
-const sortedPapers = [...papers].sort((a, b) => {
-  if (a.year !== b.year) return a.year - b.year;
-  return a.id - b.id;
-});
-
-sortedPapers.forEach(p => {
-  const item = document.createElement('div');
-  item.className = 'timeline-item';
-  item.dataset.act = p.act;
-  item.innerHTML = `
-    <div class="tl-node"></div>
-    <div class="tl-card">
-      <a href="${p.url}" target="_blank" rel="noopener">
-        <div class="tl-card-inner">
-          <div class="tl-act-label">${p.actLabel}</div>
-          <span class="tl-year">${p.year}</span>
-          <div class="tl-title">${p.title}</div>
-          <div class="tl-authors">${p.authors}</div>
-          <div class="tl-desc">${p.desc}</div>
-          <div class="tl-link-hint">
-            Read paper
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-          </div>
-        </div>
-      </a>
-    </div>
-  `;
-  timelineContainer.appendChild(item);
-});
+const branchPapers=[
+{branch:"world-models",branchLabel:"World Models",year:2022,title:"A Path Towards Autonomous Machine Intelligence",authors:"Yann LeCun",desc:"The manifesto: proposes a modular cognitive architecture built around a predictive world model, hierarchical planning, and joint-embedding learning.",url:"https://openreview.net/forum?id=BZ5a1r-kVsf"},
+{branch:"world-models",branchLabel:"World Models",year:2024,title:"V-JEPA: Video Joint Embedding Predictive Architecture",authors:"Bardes, Garrido, LeCun et al., Meta",desc:"Pure feature-prediction from video produces strong visual representations \u2014 validates LeCun\u2019s JEPA vision without generating pixels.",url:"https://arxiv.org/abs/2404.08471"},
+{branch:"world-models",branchLabel:"World Models",year:2024,title:"Genie: Generative Interactive Environments",authors:"Bruce et al., DeepMind",desc:"First generative interactive environment (11B params) trained unsupervised from unlabelled Internet videos.",url:"https://arxiv.org/abs/2402.15391"},
+{branch:"world-models",branchLabel:"World Models",year:2025,title:"Cosmos World Foundation Model Platform",authors:"NVIDIA",desc:"Open-source platform of pre-trained world foundation models for Physical AI and robotics simulation.",url:"https://arxiv.org/abs/2501.03575"},
+{branch:"robotics",branchLabel:"Robotics",year:2023,title:"RT-2: Vision-Language-Action Models",authors:"Brohan et al., Google DeepMind",desc:"Large vision-language models transfer internet-scale knowledge directly to robot control \u2014 robots that understand language.",url:"https://arxiv.org/abs/2307.15818"},
+{branch:"robotics",branchLabel:"Robotics",year:2023,title:"Open X-Embodiment: Robotic Learning Datasets and RT-X Models",authors:"Open X-Embodiment Collaboration",desc:"Largest open robotic dataset (22 robots, 527 skills, 160K+ tasks) with cross-embodiment transfer.",url:"https://arxiv.org/abs/2310.08864"},
+{branch:"robotics",branchLabel:"Robotics",year:2024,title:"\u03C0\u2080: A Vision-Language-Action Flow Model for General Robot Control",authors:"Black et al., Physical Intelligence",desc:"Flow-matching VLA model achieving state-of-the-art generalist robot control across diverse embodiments.",url:"https://arxiv.org/abs/2410.24164"},
+{branch:"ai-science",branchLabel:"AI for Science",year:2021,title:"Highly Accurate Protein Structure Prediction with AlphaFold",authors:"Jumper et al., DeepMind",desc:"Solved the 50-year-old protein structure prediction problem with atomic-level accuracy. Won the Nobel Prize.",url:"https://www.nature.com/articles/s41586-021-03819-2"},
+{branch:"ai-science",branchLabel:"AI for Science",year:2024,title:"Accurate Structure Prediction of Biomolecular Interactions with AlphaFold 3",authors:"Abramson et al., DeepMind",desc:"Extends prediction to all biomolecular complexes (proteins, DNA, RNA, ligands) via diffusion architecture.",url:"https://www.nature.com/articles/s41586-024-07487-w"},
+{branch:"ai-science",branchLabel:"AI for Science",year:2023,title:"Scaling Deep Learning for Materials Discovery (GNoME)",authors:"Merchant et al., DeepMind",desc:"Discovered ~380,000 novel stable materials \u2014 expanding known stable materials by an order of magnitude.",url:"https://www.nature.com/articles/s41586-023-06735-9"},
+{branch:"ai-science",branchLabel:"AI for Science",year:2025,title:"Olympiad-Level Mathematical Reasoning with AlphaProof",authors:"Hubert et al., DeepMind",desc:"Silver-medal IMO performance via reinforcement learning over formal proofs.",url:"https://www.nature.com/articles/s41586-025-09833-y"},
+{branch:"diffusion",branchLabel:"Diffusion / Video",year:2020,title:"Denoising Diffusion Probabilistic Models (DDPM)",authors:"Ho, Jain, Abbeel",desc:"Established the modern diffusion framework for high-quality image generation \u2014 the foundation of Stable Diffusion, DALL-E, Midjourney.",url:"https://arxiv.org/abs/2006.11239"},
+{branch:"diffusion",branchLabel:"Diffusion / Video",year:2022,title:"High-Resolution Image Synthesis with Latent Diffusion Models",authors:"Rombach et al.",desc:"Moved diffusion to latent space, cutting compute by orders of magnitude. Enabled Stable Diffusion and the generative image revolution.",url:"https://arxiv.org/abs/2112.10752"},
+{branch:"diffusion",branchLabel:"Diffusion / Video",year:2022,title:"Classifier-Free Diffusion Guidance",authors:"Ho & Salimans",desc:"The guidance technique now standard in all major diffusion systems \u2014 controls the tradeoff between quality and diversity.",url:"https://arxiv.org/abs/2207.12598"},
+{branch:"diffusion",branchLabel:"Diffusion / Video",year:2024,title:"Video Generation Models as World Simulators (Sora)",authors:"OpenAI",desc:"Demonstrated emergent physical simulation from scaling video diffusion transformers. Framed video generation as world modeling.",url:"https://openai.com/index/video-generation-models-as-world-simulators/"},
+{branch:"neuromorphic",branchLabel:"Neuromorphic",year:2018,title:"Loihi: A Neuromorphic Manycore Processor with On-Chip Learning",authors:"Davies et al., Intel",desc:"Intel\u2019s landmark neuromorphic chip with 128 spiking cores and on-chip learning \u2014 brain-inspired computing hardware.",url:"https://ieeexplore.ieee.org/document/8259423"},
+{branch:"neuromorphic",branchLabel:"Neuromorphic",year:2023,title:"Direct Learning-Based Deep Spiking Neural Networks: A Review",authors:"Guo, Huang, Ma",desc:"Systematic review of training methods for deep spiking neural networks \u2014 the software side of brain-inspired AI.",url:"https://arxiv.org/abs/2305.19725"},
+{branch:"neuromorphic",branchLabel:"Neuromorphic",year:2024,title:"Toward Large-Scale Spiking Neural Networks: Survey and Future Directions",authors:"Hu, Zheng, Li et al.",desc:"Comprehensive survey covering SNN scaling methods and emerging Spiking Transformers that bridge the gap to mainstream AI.",url:"https://arxiv.org/abs/2409.02111"},
+{branch:"agents",branchLabel:"Agents",year:2022,title:"ReAct: Synergizing Reasoning and Acting in Language Models",authors:"Yao et al.",desc:"Introduced the reason-then-act loop now foundational to all modern AI agents \u2014 think, then do, then observe.",url:"https://arxiv.org/abs/2210.03629"},
+{branch:"agents",branchLabel:"Agents",year:2023,title:"Toolformer: Language Models Can Teach Themselves to Use Tools",authors:"Schick et al., Meta",desc:"LLMs self-teach when and how to call external APIs \u2014 calculators, search engines, translators \u2014 as needed.",url:"https://arxiv.org/abs/2302.04761"},
+{branch:"agents",branchLabel:"Agents",year:2023,title:"Voyager: An Open-Ended Embodied Agent with LLMs",authors:"Wang et al.",desc:"First LLM agent that continuously explores and acquires skills in Minecraft without human intervention.",url:"https://arxiv.org/abs/2305.16291"},
+{branch:"agents",branchLabel:"Agents",year:2024,title:"SWE-agent: Agent-Computer Interfaces for Software Engineering",authors:"Yang et al., Princeton",desc:"Custom interface lets LLM agents autonomously resolve real GitHub issues \u2014 SWE-bench state of the art.",url:"https://arxiv.org/abs/2405.15793"}
+];
 
 /* ============================================
-   RENDER CONCEPTS
+   DATA: BRANCH MAP
    ============================================ */
-const conceptsGrid = document.getElementById('concepts-grid');
-
-const categoryColors = {
-  architecture: { bg: 'rgba(14,165,160,0.1)', color: '#0ea5a0' },
-  fundamentals: { bg: 'rgba(139,92,246,0.1)', color: '#8b5cf6' },
-  training: { bg: 'rgba(76,143,224,0.1)', color: '#4c8fe0' },
-  technique: { bg: 'rgba(224,123,76,0.1)', color: '#e07b4c' },
-  challenge: { bg: 'rgba(224,76,122,0.1)', color: '#e04c7a' }
-};
-
-concepts.forEach(c => {
-  const cc = categoryColors[c.category] || categoryColors.fundamentals;
-  const card = document.createElement('div');
-  card.className = 'concept-card';
-  card.dataset.name = c.name.toLowerCase();
-  card.dataset.desc = c.desc.toLowerCase();
-  card.innerHTML = `
-    <div class="concept-name">
-      ${c.name}
-      <span class="concept-tag" style="background:${cc.bg};color:${cc.color}">${c.category}</span>
-    </div>
-    <div class="concept-desc">${c.desc}</div>
-    <div class="concept-why"><strong>Why you care:</strong> ${c.why}</div>
-    <a href="${c.originUrl}" target="_blank" rel="noopener" class="concept-origin">
-      ${c.origin}
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-    </a>
-  `;
-  conceptsGrid.appendChild(card);
-});
+const branches=[
+{id:"trunk",label:"LLM Trunk",color:"#1a1a2e",question:"Can we build general intelligence from predicting the next token?"},
+{id:"world-models",label:"World Models",color:"var(--br1)",question:"Can AI learn internal models of physical reality\u2014not just text patterns?"},
+{id:"robotics",label:"Robotics",color:"var(--br2)",question:"Can a single \u201Crobot brain\u201D transfer skills across different physical bodies?"},
+{id:"ai-science",label:"AI for Science",color:"var(--br3)",question:"Can AI accelerate scientific discovery beyond human capability?"},
+{id:"diffusion",label:"Diffusion / Video",color:"var(--br4)",question:"Can learning to generate video teach AI to understand physics?"},
+{id:"neuromorphic",label:"Neuromorphic",color:"var(--br5)",question:"Can brain-inspired hardware make AI 1000\u00d7 more energy-efficient?"},
+{id:"agents",label:"Agents",color:"var(--br6)",question:"Can AI reliably plan, use tools, and complete real-world tasks autonomously?"}
+];
 
 /* ============================================
-   RENDER COMPANIES
+   DATA: CONCEPTS
    ============================================ */
-const companyGrid = document.getElementById('company-grid');
-
-companies.forEach(c => {
-  const card = document.createElement('div');
-  card.className = 'company-card';
-  card.innerHTML = `
-    <div class="company-bar" style="background:${c.color}"></div>
-    <div class="company-name">${c.name}</div>
-    <div class="company-bet">${c.bet}</div>
-    <div class="company-detail"><strong>Key Papers</strong>${c.papers}</div>
-    <div class="company-detail"><strong>Unique Advantage</strong>${c.advantage}</div>
-    <div class="company-detail"><strong>Approach</strong>${c.approach}</div>
-  `;
-  companyGrid.appendChild(card);
-});
+const concepts=[
+{name:"Transformer",desc:"The architecture behind all major LLMs. Processes text in parallel using \"attention\" where the model learns which words are relevant to which other words.",why:"It\u2019s the engine in every AI tool you use \u2014 ChatGPT, Claude, Gemini, Copilot.",origin:"Attention Is All You Need (2017)",originUrl:"https://arxiv.org/abs/1706.03762",category:"architecture"},
+{name:"Attention",desc:"The mechanism where the model weighs how important each word is to every other word in a passage.",why:"Explains why models are great at synthesizing information but struggle with precise counting or strict sequential logic.",origin:"Attention Is All You Need (2017)",originUrl:"https://arxiv.org/abs/1706.03762",category:"architecture"},
+{name:"Parameters",desc:"The learned numbers in a model \u2014 billions to trillions. Adjusted during training to encode knowledge and capabilities.",why:"A rough proxy for capability, but architecture and training quality matter more.",origin:"Scaling Laws (2020)",originUrl:"https://arxiv.org/abs/2001.08361",category:"fundamentals"},
+{name:"Tokens",desc:"The word-pieces a model actually processes \u2014 roughly 4 characters each.",why:"API pricing is per-token. Context limits are in tokens. Understanding this helps you prompt efficiently.",origin:"GPT-3 (2020)",originUrl:"https://arxiv.org/abs/2005.14165",category:"fundamentals"},
+{name:"Context Window",desc:"The maximum text a model can \"see\" at once \u2014 from 4K to 2M+ tokens.",why:"Determines how much information you can feed in. Longer isn\u2019t always better.",origin:"GPT-3 (2020)",originUrl:"https://arxiv.org/abs/2005.14165",category:"fundamentals"},
+{name:"RLHF",desc:"Reinforcement Learning from Human Feedback. Humans rank model outputs by preference; the model learns to be more helpful, harmless, and honest.",why:"The technique that made ChatGPT feel conversational. Explains why models have different \"personalities\".",origin:"InstructGPT (2022)",originUrl:"https://arxiv.org/abs/2203.02155",category:"training"},
+{name:"DPO",desc:"Direct Preference Optimization \u2014 a simpler alternative to RLHF using a basic classification loss.",why:"Democratized model alignment. Lowered the barrier for open-source models to become helpful and safe.",origin:"DPO Paper (2023)",originUrl:"https://arxiv.org/abs/2305.18290",category:"training"},
+{name:"Chain-of-Thought",desc:"A prompting technique where the model shows step-by-step reasoning before giving a final answer.",why:"The single most useful prompting technique. Use it for math, logic, analysis \u2014 any task that benefits from steps.",origin:"CoT Prompting (2022)",originUrl:"https://arxiv.org/abs/2201.11903",category:"technique"},
+{name:"Test-Time Compute",desc:"Spending more computation when generating answers rather than just using a bigger model.",why:"Why \"thinking\" models are slower but smarter. For products: trade latency for quality.",origin:"Scaling Test-Time Compute (2024)",originUrl:"https://arxiv.org/abs/2408.03314",category:"technique"},
+{name:"Mixture of Experts",desc:"An architecture where only a fraction of parameters activate per query. A router sends each token to the best experts.",why:"Why models can be very large but still fast and affordable. GPT-4, Gemini, DeepSeek-V3 all use MoE.",origin:"Switch Transformers (2021)",originUrl:"https://arxiv.org/abs/2101.03961",category:"architecture"},
+{name:"RAG",desc:"Retrieval-Augmented Generation \u2014 searching a knowledge base before generating an answer.",why:"The primary technique for reducing hallucination. Every enterprise chatbot uses RAG.",origin:"RAG Paper (2020)",originUrl:"https://arxiv.org/abs/2005.11401",category:"technique"},
+{name:"Hallucination",desc:"When a model confidently generates false or fabricated information.",why:"The biggest limitation of current LLMs. RAG and CoT help but don\u2019t fully solve it.",origin:"GPT-4 Report (2023)",originUrl:"https://arxiv.org/abs/2303.08774",category:"challenge"},
+{name:"Alignment",desc:"Making AI models behave as humans intend \u2014 helpful, harmless, honest.",why:"The central unsolved problem of AI safety. Models may learn to fake alignment.",origin:"Anthropic RLHF (2022)",originUrl:"https://arxiv.org/abs/2204.05862",category:"challenge"},
+{name:"Scaling Laws",desc:"Predictable relationships between compute, data, size, and performance.",why:"Explains the AI spending race and the cost-capability tradeoff.",origin:"Scaling Laws (2020)",originUrl:"https://arxiv.org/abs/2001.08361",category:"fundamentals"},
+{name:"Distillation",desc:"Transferring a large model\u2019s knowledge into a smaller one.",why:"How frontier capabilities reach phones and edge devices.",origin:"DeepSeek-R1 (2025)",originUrl:"https://arxiv.org/abs/2501.12948",category:"technique"},
+{name:"Interpretability",desc:"Research into understanding what\u2019s happening inside neural networks.",why:"The path to verifiable AI safety. If you can look inside a model, you can check for harmful patterns.",origin:"Monosemanticity (2023)",originUrl:"https://transformer-circuits.pub/2023/monosemantic-features/index.html",category:"challenge"},
+{name:"World Model",desc:"An internal representation of how the physical world works \u2014 predicting what happens next in reality, not just in text. LeCun\u2019s JEPA architecture predicts in abstract representation space.",why:"LeCun argues this is the missing piece for true AI intelligence. Current LLMs process words, not reality.",origin:"LeCun Manifesto (2022)",originUrl:"https://openreview.net/forum?id=BZ5a1r-kVsf",category:"architecture"},
+{name:"Diffusion Model",desc:"Generates data by learning to remove noise. Start with random noise, iteratively denoise until a clear image/video emerges.",why:"The architecture behind Stable Diffusion, DALL-E, Midjourney, Sora. A fundamentally different approach from transformers.",origin:"DDPM (2020)",originUrl:"https://arxiv.org/abs/2006.11239",category:"architecture"},
+{name:"Foundation Model",desc:"A large model pre-trained on broad data that can be adapted to many downstream tasks \u2014 across text, vision, robotics, science.",why:"The concept unifying LLMs, vision models, and robot brains. One model, many applications.",origin:"GPT-3 / CLIP era",originUrl:"https://arxiv.org/abs/2005.14165",category:"fundamentals"},
+{name:"Agentic AI",desc:"AI systems that can plan, use tools, browse the web, write code, and execute multi-step tasks autonomously.",why:"The next frontier in AI products. Manus, Devin, and SWE-agent are early examples.",origin:"ReAct (2022)",originUrl:"https://arxiv.org/abs/2210.03629",category:"technique"}
+];
 
 /* ============================================
-   TIMELINE FILTER
+   DATA: OPEN QUESTIONS
    ============================================ */
-document.getElementById('timeline-filters').addEventListener('click', e => {
-  const pill = e.target.closest('.filter-pill');
-  if (!pill) return;
+const questions=[
+{num:"01",text:"Can autoregressive token prediction achieve general intelligence, or is it a dead end?",context:"LeCun argues LLMs accumulate errors exponentially and lack world understanding. The reasoning camp (o1, R1) shows token prediction has untapped depth. The answer determines whether the current $100B+ investment thesis holds.",researchers:"Yann LeCun (AMI Labs) vs. Ilya Sutskever (SSI), Dario Amodei (Anthropic), Sam Altman (OpenAI)"},
+{num:"02",text:"How do we build AI that reliably doesn\u2019t hallucinate?",context:"Even frontier models score below 40% on rigorous factuality benchmarks. RAG helps but doesn\u2019t solve it. Anthropic found internal \"inhibition circuits\" that should trigger \"I don\u2019t know\" but malfunction.",researchers:"Anthropic (interpretability team), Google DeepMind, Meta FAIR, Eleuther AI"},
+{num:"03",text:"Can we verify that a model is truly aligned, not just faking it?",context:"Anthropic demonstrated alignment faking \u2014 Claude strategically complied during training to preserve its values. The RLHF Trilemma proved perfect alignment is computationally intractable.",researchers:"Anthropic (Evan Hubinger, Ryan Greenblatt), ARC Evals, MIRI, Center for AI Safety"},
+{num:"04",text:"Can AI agents reliably complete real-world, multi-step tasks?",context:"Carnegie Mellon research found agents fail at most real-world tasks. Companies that replaced workers with agents had to rehire for supervision. The gap between demos and reality is enormous.",researchers:"Princeton (SWE-agent), Cognition (Devin), Anthropic (Claude Code/MCP), Google DeepMind (Gemini agents)"},
+{num:"05",text:"Will world models or language models be the central architecture of AGI?",context:"LeCun\u2019s JEPA predicts in abstract representation space; V-JEPA 2 enables zero-shot robot control. Meanwhile, LLMs keep surprising everyone with emergent capabilities. The answer reshapes the entire industry.",researchers:"Yann LeCun (AMI Labs), Fei-Fei Li (World Labs), NVIDIA (Cosmos), Google DeepMind (Genie)"},
+{num:"06",text:"How small and cheap can frontier-quality AI get?",context:"DeepSeek matched OpenAI for ~$6M. Inference pricing dropped 40\u00d7 in one year. Frontier performance reaches consumer hardware within ~8 months. The moat may not be in the model.",researchers:"DeepSeek, Mistral, Alibaba (Qwen), Apple (on-device AI), Google (Gemma)"},
+{num:"07",text:"Can AI genuinely accelerate scientific discovery?",context:"AlphaFold solved protein folding (Nobel Prize). GNoME found 380K new materials. But can AI generate truly novel hypotheses, not just optimize within known frameworks?",researchers:"Google DeepMind (AlphaFold, GNoME, AlphaProof), Meta FAIR, Microsoft Research, Isomorphic Labs"},
+{num:"08",text:"Will the Transformer remain the dominant architecture, or will alternatives win?",context:"Mamba offers 5\u00d7 throughput with linear scaling. Hybrid architectures combine the best of both. State space models, RWKV, and new approaches keep emerging.",researchers:"Albert Gu & Tri Dao (Mamba), Google (hybrid architectures), RWKV Foundation, Together AI"},
+{num:"09",text:"Can video generation teach AI to understand physics?",context:"OpenAI framed Sora as a \"world simulator.\" But does generating realistic video require understanding causality, or just memorizing patterns? This connects to LeCun\u2019s world model thesis.",researchers:"OpenAI (Sora), Google DeepMind (Veo), Runway, Stability AI, Pika Labs"},
+{num:"10",text:"How do we govern AI systems that may be smarter than their overseers?",context:"Frontier models increasingly resist oversight. Jailbreak success rates of 25-93% in multi-turn attacks. Export controls drive efficiency innovation. The governance gap widens as capabilities grow.",researchers:"Anthropic (responsible scaling), OpenAI (preparedness), NIST AI Safety Institute, EU AI Office, DeepMind Safety"}
+];
 
-  document.querySelectorAll('#timeline-filters .filter-pill').forEach(p => p.classList.remove('active'));
-  pill.classList.add('active');
+/* ============================================
+   DATA: AI-NATIVE PRODUCTS
+   ============================================ */
+const products=[
+{name:"Manus",category:"Agents",catColor:"var(--br6)",desc:"General-purpose AI agent that can browse the web, write code, manage files, and execute complex multi-step tasks end-to-end. Went viral in March 2025 with demos of fully autonomous task completion. Acquired by Meta in Dec 2025 for an estimated $2-3B.",capabilities:["LLM Reasoning","Browser Automation","Code Generation","Sandbox Execution","Multi-step Planning"],insight:"Rode the convergence of reasoning models (CoT/test-time compute) and agentic tool use (ReAct pattern). The viral moment came from showing complete task execution, not just chat. Proved that \"agent as product\" is a viable category, though reliability remains the core challenge.",meta:"Founded 2024 \u00b7 Acquired by Meta ~$2-3B \u00b7 Category: Autonomous Agents"},
+{name:"Perplexity",category:"Search",catColor:"var(--act2)",desc:"AI-native search engine that retrieves sources, synthesizes answers with citations, and follows up conversationally. The first serious challenger to Google\u2019s search paradigm.",capabilities:["RAG","Multi-model Inference","Web Crawling","Citation Generation","Conversational Search"],insight:"Rode RAG as a product \u2014 the paper-to-product pipeline in its purest form. Success came from solving the hallucination problem at the UX level: every claim has a clickable source. Proved users will pay for verified AI answers.",meta:"Founded 2022 \u00b7 ~$21B valuation \u00b7 ~$200M ARR \u00b7 Category: AI Search"},
+{name:"Cursor",category:"Coding",catColor:"var(--br2)",desc:"AI-native code editor (VS Code fork) with deep model integration for code completion, multi-file editing, and codebase-aware chat. Fastest-growing SaaS in history: $0 to $1B+ ARR in ~2 years.",capabilities:["Code Generation","Codebase RAG","Multi-file Editing","Inline Completion","Agent Mode"],insight:"Rode the code generation capability wave (Codex \u2192 GPT-4 \u2192 Claude) but won by making AI a first-class citizen in the editor UX, not a sidebar. The key: context-aware suggestions that understand your entire codebase via RAG.",meta:"Founded 2023 \u00b7 ~$29B valuation \u00b7 $1B+ ARR \u00b7 Category: AI-Native IDE"},
+{name:"Midjourney",category:"Creative",catColor:"var(--br4)",desc:"Text-to-image generation via proprietary diffusion models, distributed through Discord. Bootstrapped with no VC funding, profitable from day one. Estimated $10B+ value.",capabilities:["Diffusion Models","Text-to-Image","Style Transfer","Upscaling","Image Editing"],insight:"Rode diffusion models (DDPM \u2192 Latent Diffusion) but won on taste, not technology. While competitors open-sourced, Midjourney built the best aesthetic model and a community-driven distribution channel (Discord). Proved AI creative tools can be a premium product.",meta:"Founded 2022 \u00b7 ~$10B+ value \u00b7 Bootstrapped, profitable \u00b7 Category: AI Art"},
+{name:"Runway",category:"Creative",catColor:"var(--br4)",desc:"AI video generation platform. Co-created Stable Diffusion. Gen-2 and Gen-3 produce production-quality video from text prompts. Used in Oscar-winning films.",capabilities:["Video Diffusion","Text-to-Video","Image-to-Video","Motion Brush","Inpainting"],insight:"Rode the diffusion model wave from images to video. Strategic advantage: was a co-creator of Stable Diffusion (Latent Diffusion paper), then pivoted to video first. Professional positioning (film industry adoption) built credibility that consumer-first competitors lack.",meta:"Founded 2018 \u00b7 ~$3B+ valuation \u00b7 Category: AI Video"},
+{name:"Harvey AI",category:"Enterprise",catColor:"var(--act6)",desc:"Vertical AI for legal work \u2014 contract analysis, research, due diligence, and drafting. $1,200/lawyer/month pricing validates high-value AI in professional services.",capabilities:["Domain Fine-tuning","RAG","Long Context","Document Analysis","Legal Reasoning"],insight:"Rode domain-specific fine-tuning and long-context models to crack the highest-value vertical: law. At $1,200/seat, it proved enterprise AI can charge premium prices when it saves expensive human hours. The playbook: pick a domain where experts cost $500+/hr.",meta:"Founded 2022 \u00b7 ~$11B valuation \u00b7 $195M ARR \u00b7 Category: Legal AI"},
+{name:"ElevenLabs",category:"Audio",catColor:"var(--br5)",desc:"AI voice synthesis leader. Neural text-to-speech, voice cloning, dubbing in 70+ languages. Powers podcasts, audiobooks, and media localization at scale.",capabilities:["Neural TTS","Voice Cloning","Multilingual Dubbing","Emotion Control","Real-time Streaming"],insight:"Rode neural audio synthesis but won by focusing on quality over novelty. While others showed off voice demos, ElevenLabs built production-grade infrastructure: consistent quality, low latency, multilingual support. The API-first approach turned it into audio infrastructure.",meta:"Founded 2022 \u00b7 ~$11B valuation \u00b7 Exploring IPO \u00b7 Category: AI Audio"},
+{name:"Glean",category:"Enterprise",catColor:"var(--act6)",desc:"Enterprise AI search by ex-Google engineers. RAG over company knowledge graphs \u2014 finds answers across Slack, Docs, Confluence, email, and 100+ connectors.",capabilities:["Enterprise RAG","Knowledge Graph","Semantic Search","Permission-aware Retrieval","AI Assistant"],insight:"Rode RAG applied to the enterprise data problem. The moat: deep integrations with 100+ enterprise tools and permission-aware retrieval (critical for enterprise trust). Proved that the killer enterprise AI app is search over your own data.",meta:"Founded 2019 \u00b7 ~$7.2B valuation \u00b7 $208M ARR \u00b7 Category: Enterprise AI Search"},
+{name:"Cognition / Devin",category:"Coding",catColor:"var(--br2)",desc:"Marketed as the \"first AI software engineer.\" Autonomous coding agent that plans, writes, debugs, and deploys code. Viral March 2024 demo sparked industry debate about AI replacing developers.",capabilities:["Autonomous Coding","Planning","Debugging","Terminal Access","Browser Use"],insight:"Rode the agentic AI wave \u2014 the leap from \"AI that writes code snippets\" to \"AI that completes engineering tasks.\" The viral demo created the category of \"AI software engineer.\" Reality check: reliability in production lags the demo, which is the core agent challenge.",meta:"Founded 2023 \u00b7 ~$10B valuation \u00b7 Category: AI Coding Agent"},
+{name:"Lovable",category:"App Builder",catColor:"var(--act3)",desc:"\"Vibe coding\" platform that lets non-engineers build full-stack web apps through natural language. Evolved from the open-source GPT-Engineer project. ~8M users.",capabilities:["Code Generation","Full-Stack Scaffolding","UI Generation","Database Setup","One-Click Deploy"],insight:"Rode code generation to its logical conclusion: if AI can write code, non-engineers can build apps. Won by making the output immediately deployable (not just code in a file). The \"vibe coding\" meme captured the zeitgeist of AI-assisted creation.",meta:"Founded 2023 \u00b7 ~$6.6B valuation \u00b7 $200M ARR \u00b7 Category: AI App Builder"}
+];
 
-  const act = pill.dataset.act;
-  document.querySelectorAll('.timeline-item').forEach(item => {
-    if (act === 'all' || item.dataset.act === act) {
-      item.classList.remove('hidden-filter');
-    } else {
-      item.classList.add('hidden-filter');
-    }
+/* ============================================
+   DATA: COMPANIES
+   ============================================ */
+const companies=[
+{name:"OpenAI",color:"#1a1a2e",bet:"Full-stack platform + reasoning models (o1/o3/GPT-5)",papers:"#2 GPT-3, #3 Scaling Laws, #5 InstructGPT, #7 GPT-4",advantage:"First-mover brand, massive enterprise distribution, $852B valuation",approach:"Closed-source, vertical integration, aggressive commercialization"},
+{name:"Google / DeepMind",color:"#4285f4",bet:"Multimodal AI + distribution across Search, Android, Workspace",papers:"#1 Transformer, #4 Chinchilla, #10 Gemini, #11 Switch, #14 CoT, #16 Test-Time, #19 Flan",advantage:"2B+ device distribution, deepest research bench, Nobel Prize (AlphaFold)",approach:"Natively multimodal, integrated into products, strong research publication"},
+{name:"Anthropic",color:"#d4a373",bet:"Safety-first research + developer tools (MCP, Claude Code)",papers:"#6 RLHF, #21 Alignment Faking, #22 Monosemanticity",advantage:"Safety research leadership, MCP as industry standard, $380B valuation",approach:"Constitutional AI, interpretability, responsible scaling, developer ecosystem"},
+{name:"Meta",color:"#0668E1",bet:"Open-weight models to commoditize the model layer",papers:"#8 LLaMA, #9 Llama 2, #18 RAG, #23 Llama 3",advantage:"Massive open-source ecosystem, 100+ community models built on Llama",approach:"Open weights, community-driven, strategic commoditization"},
+{name:"DeepSeek",color:"#00a67e",bet:"Maximum efficiency through algorithmic innovation",papers:"#17 DeepSeek-R1, #20 DeepSeek-V3",advantage:"Proved frontier AI doesn\u2019t require huge budgets (~$6M, ~160 employees)",approach:"Efficient MoE, MIT-licensed, pure RL for reasoning, lean team"},
+{name:"Mistral",color:"#ff6f00",bet:"Efficient MoE models and European AI sovereignty",papers:"#12 Mixtral of Experts",advantage:"European regulatory advantage, Apache-licensed, efficiency leadership",approach:"Sparse MoE, open + commercial hybrid, lean European operation"}
+];
+
+/* ============================================
+   RENDER: TRUNK TIMELINE
+   ============================================ */
+const trunkEl=document.getElementById('trunk-timeline');
+const sortedTrunk=[...trunkPapers].sort((a,b)=>a.year!==b.year?a.year-b.year:a.id-b.id);
+sortedTrunk.forEach(p=>{const d=document.createElement('div');d.className='timeline-item';d.dataset.act=p.act;d.innerHTML=`<div class="tl-node"></div><div class="tl-card"><a href="${p.url}" target="_blank" rel="noopener"><div class="tl-card-inner"><div class="tl-act-label">${p.actLabel}</div><span class="tl-year">${p.year}</span><div class="tl-title">${p.title}</div><div class="tl-authors">${p.authors}</div><div class="tl-desc">${p.desc}</div><div class="tl-link-hint">Read paper <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div></div></a></div>`;trunkEl.appendChild(d)});
+
+/* ============================================
+   RENDER: BRANCH MAP (SVG)
+   ============================================ */
+const svgNS="http://www.w3.org/2000/svg";
+const svg=document.getElementById('branch-svg');
+const branchColors={"trunk":"#1a1a2e","world-models":"#e07b4c","robotics":"#22c55e","ai-science":"#3b82f6","diffusion":"#a855f7","neuromorphic":"#6366f1","agents":"#ec4899"};
+
+function buildBranchMap(){
+  // Background
+  const bg=document.createElementNS(svgNS,'rect');bg.setAttribute('width','1100');bg.setAttribute('height','820');bg.setAttribute('fill','#f0ece1');bg.setAttribute('rx','0');svg.appendChild(bg);
+
+  const g=document.createElementNS(svgNS,'g');g.setAttribute('id','map-content');svg.appendChild(g);
+
+  // Trunk line
+  const trunk=document.createElementNS(svgNS,'path');
+  trunk.setAttribute('d','M550 50 L550 420');
+  trunk.setAttribute('stroke','#1a1a2e');trunk.setAttribute('stroke-width','4');trunk.setAttribute('fill','none');trunk.setAttribute('stroke-linecap','round');g.appendChild(trunk);
+
+  // Trunk labels
+  const trunkYears=[{y:70,t:'2017'},{y:140,t:'2020'},{y:210,t:'2022'},{y:280,t:'2023'},{y:350,t:'2024-25'}];
+  trunkYears.forEach(({y,t})=>{const dot=document.createElementNS(svgNS,'circle');dot.setAttribute('cx','550');dot.setAttribute('cy',y);dot.setAttribute('r','5');dot.setAttribute('fill','#1a1a2e');g.appendChild(dot);const txt=document.createElementNS(svgNS,'text');txt.setAttribute('x','568');txt.setAttribute('y',y+4);txt.setAttribute('font-size','11');txt.setAttribute('fill','#5a5a6e');txt.setAttribute('font-family','Inter,sans-serif');txt.textContent=t;g.appendChild(txt)});
+
+  // Trunk title
+  addLabel(g,525,35,'LLM Trunk','#1a1a2e',14,true,'end');
+  addLabel(g,550,435,'Can we build general intelligence','#5a5a6e',10,false,'middle');
+  addLabel(g,550,448,'from predicting the next token?','#5a5a6e',10,false,'middle');
+
+  // Branch data
+  const branchDefs=[
+    {id:'world-models',path:'M550 180 C450 180 350 200 200 280 L100 380',
+     color:branchColors['world-models'],label:'World Models',lx:80,ly:400,qx:100,qy:415,
+     q1:'Can AI learn internal models of',q2:'physical reality\u2014not just text?',
+     dots:[{x:400,y:195},{x:280,y:245},{x:180,y:310}]},
+    {id:'robotics',path:'M550 230 C460 230 380 280 250 380 L160 490',
+     color:branchColors['robotics'],label:'Robotics',lx:140,ly:510,qx:160,qy:525,
+     q1:'Can a single \"robot brain\" transfer',q2:'skills across physical bodies?',
+     dots:[{x:420,y:260},{x:320,y:310},{x:230,y:410}]},
+    {id:'ai-science',path:'M550 160 C640 160 730 200 830 300 L920 400',
+     color:branchColors['ai-science'],label:'AI for Science',lx:935,ly:420,qx:920,qy:435,
+     q1:'Can AI accelerate discovery',q2:'beyond human capability?',
+     dots:[{x:680,y:185},{x:780,y:240},{x:860,y:330}]},
+    {id:'diffusion',path:'M550 200 C630 200 700 230 800 290 L900 330',
+     color:branchColors['diffusion'],label:'Diffusion / Video',lx:915,ly:330,qx:900,qy:345,
+     q1:'Can learning to generate video',q2:'teach AI to understand physics?',
+     dots:[{x:660,y:210},{x:750,y:255},{x:850,y:310}]},
+    {id:'neuromorphic',path:'M550 120 C620 120 680 100 780 100 L880 100',
+     color:branchColors['neuromorphic'],label:'Neuromorphic',lx:895,ly:100,qx:880,qy:115,
+     q1:'Can brain-inspired hardware',q2:'make AI 1000\u00d7 more efficient?',
+     dots:[{x:650,y:113},{x:750,y:100},{x:830,y:100}]},
+    {id:'agents',path:'M550 310 C470 310 400 350 300 430 L200 530',
+     color:branchColors['agents'],label:'Agents',lx:180,ly:550,qx:200,qy:565,
+     q1:'Can AI reliably plan, use tools,',q2:'and complete tasks autonomously?',
+     dots:[{x:440,y:330},{x:350,y:385},{x:260,y:470}]}
+  ];
+
+  branchDefs.forEach(b=>{
+    const p=document.createElementNS(svgNS,'path');p.setAttribute('d',b.path);p.setAttribute('stroke',b.color);p.setAttribute('stroke-width','3');p.setAttribute('fill','none');p.setAttribute('stroke-linecap','round');p.setAttribute('opacity','0.8');g.appendChild(p);
+    b.dots.forEach(d=>{const c=document.createElementNS(svgNS,'circle');c.setAttribute('cx',d.x);c.setAttribute('cy',d.y);c.setAttribute('r','4');c.setAttribute('fill',b.color);c.setAttribute('opacity','0.7');g.appendChild(c)});
+    addLabel(g,b.lx,b.ly,b.label,b.color,13,true,b.lx<550?'start':'start');
+    addLabel(g,b.qx,b.qy,b.q1,'#5a5a6e',9,false,b.qx<550?'start':'start');
+    addLabel(g,b.qx,b.qy+12,b.q2,'#5a5a6e',9,false,b.qx<550?'start':'start');
   });
-});
+
+  // Convergence zone
+  const conv=document.createElementNS(svgNS,'ellipse');conv.setAttribute('cx','550');conv.setAttribute('cy','680');conv.setAttribute('rx','280');conv.setAttribute('ry','80');conv.setAttribute('fill','none');conv.setAttribute('stroke','#d4d0c5');conv.setAttribute('stroke-width','1.5');conv.setAttribute('stroke-dasharray','6 4');g.appendChild(conv);
+  addLabel(g,550,665,'Convergence Zone','#1a1a2e',14,true,'middle');
+  addLabel(g,550,685,'Language + World Models + Embodiment + Reasoning','#5a5a6e',10,false,'middle');
+  addLabel(g,550,700,'The most capable 2026+ systems will combine all branches','#5a5a6e',9.5,true,'middle');
+
+  // Convergence arrows (dashed)
+  const convArrows=['M550 460 L550 600','M120 390 C200 500 350 580 400 620','M940 410 C860 500 700 580 650 620','M180 500 C260 560 380 600 430 630','M910 340 C840 440 700 550 640 610','M890 110 C850 300 700 500 620 600'];
+  convArrows.forEach(d=>{const p=document.createElementNS(svgNS,'path');p.setAttribute('d',d);p.setAttribute('stroke','#d4d0c5');p.setAttribute('stroke-width','1');p.setAttribute('fill','none');p.setAttribute('stroke-dasharray','4 3');p.setAttribute('opacity','0.5');g.appendChild(p)});
+}
+
+function addLabel(parent,x,y,text,color,size,bold,anchor){
+  const t=document.createElementNS(svgNS,'text');t.setAttribute('x',x);t.setAttribute('y',y);t.setAttribute('font-size',size);t.setAttribute('fill',color);t.setAttribute('font-family','Inter,sans-serif');if(bold)t.setAttribute('font-weight','600');t.setAttribute('text-anchor',anchor||'start');t.textContent=text;parent.appendChild(t);
+}
+
+buildBranchMap();
+
+// Branch legend
+const legendEl=document.getElementById('branch-legend');
+branches.forEach(b=>{const d=document.createElement('div');d.className='branch-legend-item';d.innerHTML=`<span class="dot" style="background:${branchColors[b.id]||b.color}"></span>${b.label}`;legendEl.appendChild(d)});
+
+// Zoom & Pan
+(function(){
+  const wrap=document.getElementById('map-wrap');
+  let scale=1,tx=0,ty=0,dragging=false,startX,startY,startTx,startTy;
+  const content=document.getElementById('map-content');
+  function apply(){content.setAttribute('transform',`translate(${tx},${ty}) scale(${scale})`)}
+  document.getElementById('zoom-in').onclick=()=>{scale=Math.min(scale*1.3,4);apply()};
+  document.getElementById('zoom-out').onclick=()=>{scale=Math.max(scale/1.3,0.5);apply()};
+  document.getElementById('zoom-reset').onclick=()=>{scale=1;tx=0;ty=0;apply()};
+  svg.addEventListener('pointerdown',e=>{dragging=true;startX=e.clientX;startY=e.clientY;startTx=tx;startTy=ty;svg.setPointerCapture(e.pointerId)});
+  svg.addEventListener('pointermove',e=>{if(!dragging)return;tx=startTx+(e.clientX-startX)/scale;ty=startTy+(e.clientY-startY)/scale;apply()});
+  svg.addEventListener('pointerup',()=>dragging=false);
+  svg.addEventListener('wheel',e=>{e.preventDefault();const f=e.deltaY<0?1.1:0.9;scale=Math.min(Math.max(scale*f,0.5),4);apply()},{passive:false});
+})();
 
 /* ============================================
-   CONCEPT SEARCH
+   RENDER: BRANCH TIMELINE
    ============================================ */
-document.getElementById('concept-search').addEventListener('input', e => {
-  const q = e.target.value.toLowerCase().trim();
-  document.querySelectorAll('.concept-card').forEach(card => {
-    const match = !q || card.dataset.name.includes(q) || card.dataset.desc.includes(q);
-    card.classList.toggle('hidden-filter', !match);
-  });
-});
+const branchTlEl=document.getElementById('branch-tl-container');
+const sortedBranch=[...branchPapers].sort((a,b)=>a.year!==b.year?a.year-b.year:0);
+sortedBranch.forEach(p=>{const d=document.createElement('div');d.className='timeline-item';d.dataset.branch=p.branch;d.innerHTML=`<div class="tl-node"></div><div class="tl-card"><a href="${p.url}" target="_blank" rel="noopener"><div class="tl-card-inner"><div class="tl-act-label">${p.branchLabel}</div><span class="tl-year">${p.year}</span><div class="tl-title">${p.title}</div><div class="tl-authors">${p.authors}</div><div class="tl-desc">${p.desc}</div><div class="tl-link-hint">Read paper <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div></div></a></div>`;branchTlEl.appendChild(d)});
+
+/* ============================================
+   RENDER: CONCEPTS
+   ============================================ */
+const conceptsGrid=document.getElementById('concepts-grid');
+const catCol={architecture:{bg:'rgba(14,165,160,0.1)',color:'#0ea5a0'},fundamentals:{bg:'rgba(139,92,246,0.1)',color:'#8b5cf6'},training:{bg:'rgba(76,143,224,0.1)',color:'#4c8fe0'},technique:{bg:'rgba(224,123,76,0.1)',color:'#e07b4c'},challenge:{bg:'rgba(224,76,122,0.1)',color:'#e04c7a'}};
+concepts.forEach(c=>{const cc=catCol[c.category]||catCol.fundamentals;const d=document.createElement('div');d.className='concept-card';d.dataset.name=c.name.toLowerCase();d.dataset.desc=c.desc.toLowerCase();d.innerHTML=`<div class="concept-name">${c.name} <span class="concept-tag" style="background:${cc.bg};color:${cc.color}">${c.category}</span></div><div class="concept-desc">${c.desc}</div><div class="concept-why"><strong>Why you care:</strong> ${c.why}</div><a href="${c.originUrl}" target="_blank" rel="noopener" class="concept-origin">${c.origin} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>`;conceptsGrid.appendChild(d)});
+
+/* ============================================
+   RENDER: OPEN QUESTIONS
+   ============================================ */
+const questionsGrid=document.getElementById('questions-grid');
+questions.forEach(q=>{const d=document.createElement('div');d.className='question-card';d.innerHTML=`<div class="question-num">${q.num}</div><div class="question-text">${q.text}</div><div class="question-context">${q.context}</div><div class="question-researchers"><strong>Who\u2019s working on it</strong>${q.researchers}</div>`;questionsGrid.appendChild(d)});
+
+/* ============================================
+   RENDER: PRODUCTS
+   ============================================ */
+const productsGrid=document.getElementById('products-grid');
+products.forEach(p=>{const d=document.createElement('div');d.className='product-card';d.innerHTML=`<div class="product-header"><span class="product-name">${p.name}</span><span class="product-category" style="background:rgba(139,92,246,0.1);color:${p.catColor}">${p.category}</span></div><div class="product-desc">${p.desc}</div><div class="product-capabilities">${p.capabilities.map(c=>`<span class="product-cap-tag">${c}</span>`).join('')}</div><div class="product-insight"><strong>What they rode:</strong> ${p.insight}</div><div class="product-meta">${p.meta}</div>`;productsGrid.appendChild(d)});
+
+/* ============================================
+   RENDER: COMPANIES
+   ============================================ */
+const companyGrid=document.getElementById('company-grid');
+companies.forEach(c=>{const d=document.createElement('div');d.className='company-card';d.innerHTML=`<div class="company-bar" style="background:${c.color}"></div><div class="company-name">${c.name}</div><div class="company-bet">${c.bet}</div><div class="company-detail"><strong>Key Papers</strong>${c.papers}</div><div class="company-detail"><strong>Unique Advantage</strong>${c.advantage}</div><div class="company-detail"><strong>Approach</strong>${c.approach}</div>`;companyGrid.appendChild(d)});
+
+/* ============================================
+   FILTERS
+   ============================================ */
+document.getElementById('timeline-filters').addEventListener('click',e=>{const p=e.target.closest('.filter-pill');if(!p)return;document.querySelectorAll('#timeline-filters .filter-pill').forEach(x=>x.classList.remove('active'));p.classList.add('active');const a=p.dataset.act;document.querySelectorAll('#trunk-timeline .timeline-item').forEach(i=>{i.classList.toggle('hidden-filter',a!=='all'&&i.dataset.act!==a)})});
+
+document.getElementById('branch-filters').addEventListener('click',e=>{const p=e.target.closest('.filter-pill');if(!p)return;document.querySelectorAll('#branch-filters .filter-pill').forEach(x=>x.classList.remove('active'));p.classList.add('active');const b=p.dataset.branch;document.querySelectorAll('#branch-tl-container .timeline-item').forEach(i=>{i.classList.toggle('hidden-filter',b!=='all'&&i.dataset.branch!==b)})});
+
+document.getElementById('concept-search').addEventListener('input',e=>{const q=e.target.value.toLowerCase().trim();document.querySelectorAll('.concept-card').forEach(c=>{c.classList.toggle('hidden-filter',q&&!c.dataset.name.includes(q)&&!c.dataset.desc.includes(q))})});
 
 /* ============================================
    SCROLL REVEAL
    ============================================ */
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
-
-document.querySelectorAll('.timeline-item').forEach(item => observer.observe(item));
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.timeline-item').forEach(i=>obs.observe(i));
 </script>
 </body>
 </html>
