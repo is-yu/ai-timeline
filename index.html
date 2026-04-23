@@ -200,12 +200,13 @@ section{padding:5rem 2rem}
 .btn-question-mode:hover svg{transform:translateX(3px)}
 
 /* PART DIVIDERS */
-.part-divider{max-width:var(--container);margin:0 auto;padding:4rem 2rem 1rem;display:flex;align-items:center;gap:1.5rem}
-.part-divider .part-num{font-family:var(--font-serif);font-size:3.5rem;font-weight:700;line-height:1;opacity:0.08;flex-shrink:0}
+.part-divider{background:var(--text);color:#fff;padding:3.5rem 2rem;margin:0}
+.part-divider-inner{max-width:var(--container);margin:0 auto;display:flex;align-items:center;gap:1.5rem}
+.part-divider .part-num{font-family:var(--font-serif);font-size:3.5rem;font-weight:700;line-height:1;opacity:0.15;flex-shrink:0;color:#fff}
 .part-divider .part-info{flex:1}
-.part-divider .part-title{font-family:var(--font-serif);font-size:1.5rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:0.2rem}
-.part-divider .part-desc{font-size:0.82rem;color:var(--text-secondary)}
-.part-divider .part-line{flex:1;height:1px;background:var(--border)}
+.part-divider .part-title{font-family:var(--font-serif);font-size:1.5rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:0.2rem;color:#fff}
+.part-divider .part-desc{font-size:0.82rem;color:rgba(255,255,255,0.55)}
+.part-divider .part-line{flex:1;height:1px;background:rgba(255,255,255,0.12)}
 
 /* FOOTER */
 footer{text-align:center;padding:3rem 2rem;font-size:0.8rem;color:var(--text-secondary);border-top:1px solid var(--border)}
@@ -220,7 +221,7 @@ footer a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
   .timeline-item:nth-child(odd) .tl-card,.timeline-item:nth-child(even) .tl-card{margin:0;text-align:left}
   .tl-card-inner{max-width:100%}.tl-node{left:1.5rem}
   .concepts-grid,.company-grid,.questions-grid,.products-grid{grid-template-columns:1fr}
-  .part-divider{padding:3rem 2rem 0.5rem}.part-divider .part-num{font-size:2.5rem}
+  .part-divider{padding:2.5rem 2rem}.part-divider .part-num{font-size:2.5rem}
   .part-divider .part-title{font-size:1.2rem}
 }
 @media(max-width:480px){.hero h1{font-size:2.2rem}nav .nav-links{gap:0.5rem}.hero-stats{flex-direction:column;gap:0.8rem}.btn-question-mode{font-size:0.78rem;padding:0.65rem 1.4rem}}
@@ -261,12 +262,14 @@ footer a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
 
 <!-- PART I: RESEARCH TIMELINE -->
 <div class="part-divider" id="part-research">
-  <span class="part-num">I</span>
-  <div class="part-info">
-    <div class="part-title">Research Timeline</div>
-    <div class="part-desc">45 landmark papers across the LLM trunk and 6 research branches, plus the full landscape map.</div>
+  <div class="part-divider-inner">
+    <span class="part-num">I</span>
+    <div class="part-info">
+      <div class="part-title">Research Timeline</div>
+      <div class="part-desc">45 landmark papers across the LLM trunk and 6 research branches, plus the full landscape map.</div>
+    </div>
+    <div class="part-line"></div>
   </div>
-  <div class="part-line"></div>
 </div>
 
 <!-- TRUNK TIMELINE -->
@@ -324,12 +327,14 @@ footer a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
 
 <!-- PART II: CONCEPTS & QUESTIONS -->
 <div class="part-divider" id="part-concepts">
-  <span class="part-num">II</span>
-  <div class="part-info">
-    <div class="part-title">Concepts &amp; Questions</div>
-    <div class="part-desc">20 key concepts to navigate AI research, and the 10 unsolved problems driving the next wave.</div>
+  <div class="part-divider-inner">
+    <span class="part-num">II</span>
+    <div class="part-info">
+      <div class="part-title">Concepts &amp; Questions</div>
+      <div class="part-desc">20 key concepts to navigate AI research, and the 10 unsolved problems driving the next wave.</div>
+    </div>
+    <div class="part-line"></div>
   </div>
-  <div class="part-line"></div>
 </div>
 
 <!-- CONCEPTS -->
@@ -356,12 +361,14 @@ footer a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
 
 <!-- PART III: INDUSTRY LANDSCAPE -->
 <div class="part-divider" id="part-industry">
-  <span class="part-num">III</span>
-  <div class="part-info">
-    <div class="part-title">Industry Landscape</div>
-    <div class="part-desc">10 AI-native companies riding the wave, and 6 tech giants placing their bets differently.</div>
+  <div class="part-divider-inner">
+    <span class="part-num">III</span>
+    <div class="part-info">
+      <div class="part-title">Industry Landscape</div>
+      <div class="part-desc">10 AI-native companies riding the wave, and 6 tech giants placing their bets differently.</div>
+    </div>
+    <div class="part-line"></div>
   </div>
-  <div class="part-line"></div>
 </div>
 
 <!-- AI-NATIVE PRODUCTS -->
