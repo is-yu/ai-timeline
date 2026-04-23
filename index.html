@@ -192,6 +192,21 @@ section{padding:5rem 2rem}
 .product-insight strong{font-weight:600}
 .product-meta{font-size:0.72rem;color:var(--text-secondary)}
 
+/* QUESTION MODE BUTTON */
+.hero-cta{margin-top:2.5rem}
+.btn-question-mode{display:inline-flex;align-items:center;gap:0.5rem;padding:0.75rem 1.8rem;border-radius:100px;border:1.5px solid var(--text);background:var(--text);color:var(--bg);font-family:var(--font-sans);font-size:0.85rem;font-weight:600;letter-spacing:0.02em;cursor:pointer;transition:all var(--transition);text-decoration:none}
+.btn-question-mode:hover{background:transparent;color:var(--text);border-color:var(--accent);box-shadow:0 0 20px var(--accent-dim)}
+.btn-question-mode svg{width:16px;height:16px;transition:transform var(--transition)}
+.btn-question-mode:hover svg{transform:translateX(3px)}
+
+/* PART DIVIDERS */
+.part-divider{max-width:var(--container);margin:0 auto;padding:4rem 2rem 1rem;display:flex;align-items:center;gap:1.5rem}
+.part-divider .part-num{font-family:var(--font-serif);font-size:3.5rem;font-weight:700;line-height:1;opacity:0.08;flex-shrink:0}
+.part-divider .part-info{flex:1}
+.part-divider .part-title{font-family:var(--font-serif);font-size:1.5rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:0.2rem}
+.part-divider .part-desc{font-size:0.82rem;color:var(--text-secondary)}
+.part-divider .part-line{flex:1;height:1px;background:var(--border)}
+
 /* FOOTER */
 footer{text-align:center;padding:3rem 2rem;font-size:0.8rem;color:var(--text-secondary);border-top:1px solid var(--border)}
 footer a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
@@ -205,8 +220,10 @@ footer a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
   .timeline-item:nth-child(odd) .tl-card,.timeline-item:nth-child(even) .tl-card{margin:0;text-align:left}
   .tl-card-inner{max-width:100%}.tl-node{left:1.5rem}
   .concepts-grid,.company-grid,.questions-grid,.products-grid{grid-template-columns:1fr}
+  .part-divider{padding:3rem 2rem 0.5rem}.part-divider .part-num{font-size:2.5rem}
+  .part-divider .part-title{font-size:1.2rem}
 }
-@media(max-width:480px){.hero h1{font-size:2.2rem}nav .nav-links{gap:0.5rem}.hero-stats{flex-direction:column;gap:0.8rem}}
+@media(max-width:480px){.hero h1{font-size:2.2rem}nav .nav-links{gap:0.5rem}.hero-stats{flex-direction:column;gap:0.8rem}.btn-question-mode{font-size:0.78rem;padding:0.65rem 1.4rem}}
 </style>
 </head>
 <body>
@@ -215,14 +232,9 @@ footer a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
   <div class="nav-inner">
     <div class="nav-logo">AI Timeline</div>
     <ul class="nav-links">
-      <li><a href="#timeline">Trunk</a></li>
-      <li><a href="#branch-map">Branches</a></li>
-      <li><a href="#branch-timeline">Branch Papers</a></li>
-      <li><a href="#concepts">Concepts</a></li>
-      <li><a href="#questions">Open Questions</a></li>
-      <li><a href="#products">Products</a></li>
-      <li><a href="#strategies">Strategies</a></li>
-      <li><a href="breakthroughs.html">Breakthroughs</a></li>
+      <li><a href="#part-research">Research Timeline</a></li>
+      <li><a href="#part-concepts">Concepts &amp; Questions</a></li>
+      <li><a href="#part-industry">Industry Landscape</a></li>
     </ul>
   </div>
 </nav>
@@ -237,12 +249,25 @@ footer a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
       <div class="hero-stat"><div class="num">10</div><div class="label">Open Questions</div></div>
       <div class="hero-stat"><div class="num">10</div><div class="label">AI Products</div></div>
     </div>
+    <div class="hero-cta">
+      <a href="breakthroughs.html" class="btn-question-mode">Question Mode <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
   </div>
   <div class="scroll-hint">
     <span>Scroll to explore</span>
     <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
   </div>
 </section>
+
+<!-- PART I: RESEARCH TIMELINE -->
+<div class="part-divider" id="part-research">
+  <span class="part-num">I</span>
+  <div class="part-info">
+    <div class="part-title">Research Timeline</div>
+    <div class="part-desc">45 landmark papers across the LLM trunk and 6 research branches, plus the full landscape map.</div>
+  </div>
+  <div class="part-line"></div>
+</div>
 
 <!-- TRUNK TIMELINE -->
 <section id="timeline">
@@ -297,6 +322,16 @@ footer a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
   <div class="timeline-container" id="branch-tl-container"><div class="timeline-line"></div></div>
 </section>
 
+<!-- PART II: CONCEPTS & QUESTIONS -->
+<div class="part-divider" id="part-concepts">
+  <span class="part-num">II</span>
+  <div class="part-info">
+    <div class="part-title">Concepts &amp; Questions</div>
+    <div class="part-desc">20 key concepts to navigate AI research, and the 10 unsolved problems driving the next wave.</div>
+  </div>
+  <div class="part-line"></div>
+</div>
+
 <!-- CONCEPTS -->
 <section id="concepts">
   <div class="section-header">
@@ -318,6 +353,16 @@ footer a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
   </div>
   <div class="questions-grid" id="questions-grid"></div>
 </section>
+
+<!-- PART III: INDUSTRY LANDSCAPE -->
+<div class="part-divider" id="part-industry">
+  <span class="part-num">III</span>
+  <div class="part-info">
+    <div class="part-title">Industry Landscape</div>
+    <div class="part-desc">10 AI-native companies riding the wave, and 6 tech giants placing their bets differently.</div>
+  </div>
+  <div class="part-line"></div>
+</div>
 
 <!-- AI-NATIVE PRODUCTS -->
 <section id="products">
