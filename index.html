@@ -208,6 +208,12 @@ section{padding:5rem 2rem}
 .part-divider .part-desc{font-size:0.82rem;color:rgba(255,255,255,0.55)}
 .part-divider .part-line{flex:1;height:1px;background:rgba(255,255,255,0.12)}
 
+/* SCROLL TO TOP */
+.scroll-top{position:fixed;bottom:2rem;right:2rem;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:90;opacity:0;pointer-events:none;transform:translateY(10px);transition:all var(--transition);box-shadow:0 4px 15px rgba(0,0,0,0.08)}
+.scroll-top.visible{opacity:1;pointer-events:auto;transform:translateY(0)}
+.scroll-top:hover{background:var(--text);color:var(--bg);border-color:var(--text)}
+.scroll-top svg{width:18px;height:18px}
+
 /* FOOTER */
 footer{text-align:center;padding:3rem 2rem;font-size:0.8rem;color:var(--text-secondary);border-top:1px solid var(--border)}
 footer a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
@@ -393,6 +399,10 @@ footer a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
   <p>Built with curiosity. Data sourced from arXiv, Nature, and original publications.<br>
   <a href="https://yuhuang.work">yuhuang.work</a></p>
 </footer>
+
+<button class="scroll-top" id="scroll-top" title="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
 
 <script>
 /* ============================================
@@ -687,6 +697,13 @@ document.getElementById('concept-search').addEventListener('input',e=>{const q=e
    ============================================ */
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.timeline-item').forEach(i=>obs.observe(i));
+
+/* ============================================
+   SCROLL TO TOP
+   ============================================ */
+const scrollBtn=document.getElementById('scroll-top');
+window.addEventListener('scroll',()=>{scrollBtn.classList.toggle('visible',window.scrollY>600)},{passive:true});
+scrollBtn.addEventListener('click',()=>{window.scrollTo({top:0,behavior:'smooth'})});
 </script>
 </body>
 </html>
