@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Breakthroughs — Questions Answered &amp; Open Frontiers</title>
+<meta name="description" content="45 landmark AI papers reframed as the 25 questions they answered, the verdicts they delivered, and the 15 open frontiers they raised.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#f0ece1;--bg-card:#faf8f3;--text:#1a1a2e;--text-secondary:#5a5a6e;
+  --accent:#2eff00;--accent-dim:rgba(46,255,0,0.15);--border:#d4d0c5;
+  --act1:#e07b4c;--act2:#4c8fe0;--act3:#8b5cf6;--act4:#0ea5a0;--act5:#e04c7a;--act6:#d4a017;
+  --br1:#e07b4c;--br2:#22c55e;--br3:#3b82f6;--br4:#a855f7;--br5:#6366f1;--br6:#ec4899;
+  --font-serif:'Cormorant Garamond',Georgia,serif;
+  --font-sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --container:1100px;--transition:0.35s cubic-bezier(0.4,0,0.2,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--text);line-height:1.65;font-size:15px;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(240,236,225,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+nav .nav-inner{max-width:var(--container);margin:0 auto;padding:0.75rem 2rem;display:flex;align-items:center;justify-content:space-between}
+nav .nav-logo{font-family:var(--font-serif);font-size:1.2rem;font-weight:700;letter-spacing:-0.02em}
+nav .nav-links{display:flex;gap:1.4rem;list-style:none;flex-wrap:wrap}
+nav .nav-links a{font-size:0.75rem;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-secondary);transition:color var(--transition);position:relative}
+nav .nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1.5px;background:var(--accent);transition:width var(--transition)}
+nav .nav-links a:hover{color:var(--text)}
+nav .nav-links a:hover::after{width:100%}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:6rem 2rem 4rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 30% 50%,rgba(46,255,0,0.04) 0%,transparent 50%),radial-gradient(ellipse at 70% 50%,rgba(139,92,246,0.04) 0%,transparent 50%);animation:hero-drift 20s ease-in-out infinite alternate}
+@keyframes hero-drift{0%{transform:translate(0,0) rotate(0deg)}100%{transform:translate(-2%,1%) rotate(1deg)}}
+.hero-content{position:relative;z-index:1;max-width:720px}
+.hero h1{font-family:var(--font-serif);font-size:clamp(2.8rem,6vw,4.5rem);font-weight:700;line-height:1.1;letter-spacing:-0.03em;margin-bottom:1.5rem}
+.hero h1 span{background:linear-gradient(135deg,var(--act1),var(--act5),var(--act3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:1.1rem;color:var(--text-secondary);max-width:560px;margin:0 auto 2.5rem;line-height:1.7}
+.hero-stats{display:flex;justify-content:center;gap:2rem;margin-top:2rem;flex-wrap:wrap}
+.hero-stat{text-align:center}
+.hero-stat .num{font-family:var(--font-serif);font-size:2.5rem;font-weight:700;line-height:1;color:var(--text)}
+.hero-stat .label{font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-secondary);margin-top:0.3rem}
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.5rem;color:var(--text-secondary);font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;animation:bounce 2s ease-in-out infinite}
+.scroll-hint svg{width:20px;height:20px;stroke:var(--text-secondary)}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+
+/* SECTION COMMON */
+section{padding:5rem 2rem}
+.section-header{max-width:var(--container);margin:0 auto 3rem;text-align:center}
+.section-header h2{font-family:var(--font-serif);font-size:clamp(2rem,4vw,3rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:0.75rem}
+.section-header p{color:var(--text-secondary);max-width:560px;margin:0 auto;font-size:1rem}
+
+/* FILTER PILLS */
+.filter-bar{max-width:var(--container);margin:0 auto 2.5rem;display:flex;flex-wrap:wrap;justify-content:center;gap:0.5rem}
+.filter-pill{padding:0.45rem 1rem;border-radius:100px;border:1.5px solid var(--border);background:transparent;font-family:var(--font-sans);font-size:0.78rem;font-weight:500;color:var(--text-secondary);cursor:pointer;transition:all var(--transition);white-space:nowrap}
+.filter-pill:hover{border-color:var(--text-secondary);color:var(--text)}
+.filter-pill.active{background:var(--text);border-color:var(--text);color:var(--bg)}
+.filter-pill[data-cat="foundation"].active{background:var(--act1);border-color:var(--act1);color:#fff}
+.filter-pill[data-cat="alignment"].active{background:var(--act2);border-color:var(--act2);color:#fff}
+.filter-pill[data-cat="scaling"].active{background:var(--act3);border-color:var(--act3);color:#fff}
+.filter-pill[data-cat="efficiency"].active{background:var(--act4);border-color:var(--act4);color:#fff}
+.filter-pill[data-cat="reasoning"].active{background:var(--act5);border-color:var(--act5);color:#fff}
+.filter-pill[data-cat="safety"].active{background:var(--act6);border-color:var(--act6);color:#fff}
+.filter-pill[data-cat="world-models"].active{background:var(--br1);border-color:var(--br1);color:#fff}
+.filter-pill[data-cat="robotics"].active{background:var(--br2);border-color:var(--br2);color:#fff}
+.filter-pill[data-cat="science"].active{background:var(--br3);border-color:var(--br3);color:#fff}
+.filter-pill[data-cat="diffusion"].active{background:var(--br4);border-color:var(--br4);color:#fff}
+.filter-pill[data-cat="agents"].active{background:var(--br6);border-color:var(--br6);color:#fff}
+.filter-pill[data-oq="new"].active{background:var(--accent);border-color:var(--accent);color:var(--text)}
+.filter-pill[data-oq="original"].active{background:var(--act3);border-color:var(--act3);color:#fff}
+
+/* TIMELINE */
+.timeline-container{max-width:var(--container);margin:0 auto;position:relative}
+.timeline-line{position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--border);transform:translateX(-50%)}
+.timeline-item{position:relative;display:flex;align-items:flex-start;margin-bottom:3.5rem;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.timeline-item.visible{opacity:1;transform:translateY(0)}
+.timeline-item.hidden-filter{display:none}
+.timeline-item:nth-child(odd){flex-direction:row}
+.timeline-item:nth-child(even){flex-direction:row-reverse}
+.timeline-item:nth-child(odd) .qa-card{margin-right:calc(50% + 2rem);text-align:right}
+.timeline-item:nth-child(even) .qa-card{margin-left:calc(50% + 2rem);text-align:left}
+.tl-node{position:absolute;left:50%;top:0.5rem;width:16px;height:16px;border-radius:50%;border:3px solid var(--border);background:var(--bg);transform:translateX(-50%);z-index:2;transition:all var(--transition)}
+.timeline-item:hover .tl-node{transform:translateX(-50%) scale(1.4);border-color:var(--accent);box-shadow:0 0 12px var(--accent-dim)}
+
+/* QA CARD */
+.qa-card{width:100%;cursor:default}
+.qa-card-inner{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:2rem;transition:all var(--transition);display:inline-block;max-width:500px;text-align:left}
+.qa-card-inner:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,0.08);border-color:var(--accent)}
+.qa-meta{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem;flex-wrap:wrap}
+.qa-year{font-family:var(--font-serif);font-size:0.85rem;font-weight:600;display:inline-block;padding:0.15rem 0.6rem;border-radius:4px}
+.qa-cat-tag{font-family:var(--font-sans);font-size:0.6rem;text-transform:uppercase;letter-spacing:0.08em;padding:0.15rem 0.5rem;border-radius:4px;font-weight:600}
+.qa-question{font-family:var(--font-serif);font-size:1.3rem;font-weight:700;line-height:1.3;margin-bottom:0.85rem;letter-spacing:-0.01em}
+.qa-verdict{font-size:0.9rem;color:var(--text);line-height:1.65;margin-bottom:0.85rem;padding:0.85rem 1rem;background:var(--accent-dim);border-radius:8px;border-left:3px solid var(--accent)}
+.qa-verdict strong{font-weight:600}
+.qa-papers{margin-bottom:0.85rem}
+.qa-papers-label{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-secondary);margin-bottom:0.4rem}
+.qa-paper-link{display:flex;align-items:flex-start;gap:0.4rem;font-size:0.8rem;color:var(--text);margin-bottom:0.3rem;transition:color var(--transition);line-height:1.45}
+.qa-paper-link:hover{color:var(--accent)}
+.qa-paper-link svg{width:12px;height:12px;flex-shrink:0;margin-top:2px}
+.qa-raised{font-size:0.82rem;color:var(--text-secondary);padding:0.65rem 0.85rem;background:rgba(139,92,246,0.06);border-radius:6px;border-left:3px solid var(--act3);line-height:1.55}
+.qa-raised a{color:var(--act3);text-decoration:underline;text-underline-offset:2px;font-weight:500;transition:color var(--transition)}
+.qa-raised a:hover{color:var(--text)}
+
+/* HIGHLIGHT FLASH */
+.highlight-flash .qa-card-inner,.highlight-flash.oq-card{animation:flash 1.5s ease}
+@keyframes flash{0%,100%{box-shadow:0 0 0 0 transparent}30%{box-shadow:0 0 0 4px rgba(46,255,0,0.3)}}
+
+/* OPEN QUESTIONS */
+#open-questions{background:var(--bg-card)}
+.oq-grid{max-width:var(--container);margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.25rem}
+.oq-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:1.5rem;transition:all var(--transition);opacity:0;transform:translateY(20px)}
+.oq-card.visible{opacity:1;transform:translateY(0);transition:opacity 0.6s ease,transform 0.6s ease,box-shadow var(--transition),border-color var(--transition)}
+.oq-card.hidden-filter{display:none}
+.oq-card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,0.07);border-color:var(--accent)}
+.oq-header{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem;flex-wrap:wrap}
+.oq-num{font-family:var(--font-serif);font-size:1.6rem;font-weight:700;line-height:1;opacity:0.15}
+.oq-new-badge{font-size:0.6rem;text-transform:uppercase;letter-spacing:0.08em;padding:0.2rem 0.55rem;border-radius:4px;background:rgba(46,255,0,0.15);color:#1a7a00;font-weight:600}
+.oq-question{font-family:var(--font-serif);font-size:1.15rem;font-weight:700;line-height:1.35;margin-bottom:0.75rem}
+.oq-context{font-size:0.85rem;color:var(--text-secondary);line-height:1.6;margin-bottom:0.75rem}
+.oq-progress-wrap{margin-bottom:0.75rem}
+.oq-progress-label{display:flex;justify-content:space-between;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-secondary);margin-bottom:0.35rem}
+.oq-progress-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.oq-progress-fill{height:100%;border-radius:2px;width:0;transition:width 1s ease}
+.oq-latest{font-size:0.82rem;color:var(--text);line-height:1.55;padding:0.7rem;background:var(--accent-dim);border-radius:6px;margin-bottom:0.75rem}
+.oq-latest strong{font-weight:600}
+.oq-researchers{font-size:0.78rem;color:var(--text)}
+.oq-researchers strong{display:block;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-secondary);margin-bottom:0.2rem}
+
+/* FOOTER */
+footer{text-align:center;padding:3rem 2rem;font-size:0.8rem;color:var(--text-secondary);border-top:1px solid var(--border)}
+footer a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav .nav-links{gap:0.7rem}nav .nav-links a{font-size:0.65rem}
+  .hero-stats{gap:1rem}.hero-stat .num{font-size:1.8rem}
+  .timeline-line{left:1.5rem}
+  .timeline-item,.timeline-item:nth-child(odd),.timeline-item:nth-child(even){flex-direction:row;padding-left:3rem}
+  .timeline-item:nth-child(odd) .qa-card,.timeline-item:nth-child(even) .qa-card{margin:0;text-align:left}
+  .qa-card-inner{max-width:100%}.tl-node{left:1.5rem}
+  .oq-grid{grid-template-columns:1fr}
+}
+@media(max-width:480px){.hero h1{font-size:2.2rem}nav .nav-links{gap:0.5rem}.hero-stats{flex-direction:column;gap:0.8rem}.qa-card-inner{padding:1.3rem}.qa-question{font-size:1.15rem}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">AI Timeline</a>
+    <ul class="nav-links">
+      <li><a href="index.html#timeline">Main Timeline</a></li>
+      <li><a href="#answered-timeline">Answered</a></li>
+      <li><a href="#open-questions">Open Questions</a></li>
+      <li><a href="index.html#branch-map">Branch Map</a></li>
+      <li><a href="index.html#products">Products</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>The Questions That <span>Shaped AI</span></h1>
+    <p>45 papers reframed as the 25 questions they answered, the verdicts they delivered, and the new questions they raised. Follow the thread from answered to open.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">25</div><div class="label">Answered</div></div>
+      <div class="hero-stat"><div class="num">45</div><div class="label">Papers</div></div>
+      <div class="hero-stat"><div class="num">15</div><div class="label">Open</div></div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll to explore</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+  </div>
+</section>
+
+<!-- ANSWERED QUESTIONS TIMELINE -->
+<section id="answered-timeline">
+  <div class="section-header">
+    <h2>Answered Questions</h2>
+    <p>Each breakthrough answered a core question. Click "This raised" to follow the thread to the next question it opened.</p>
+  </div>
+  <div class="filter-bar" id="q-filters">
+    <button class="filter-pill active" data-cat="all">All</button>
+    <button class="filter-pill" data-cat="foundation">Foundation</button>
+    <button class="filter-pill" data-cat="alignment">Alignment</button>
+    <button class="filter-pill" data-cat="scaling">Scaling</button>
+    <button class="filter-pill" data-cat="efficiency">Efficiency</button>
+    <button class="filter-pill" data-cat="reasoning">Reasoning</button>
+    <button class="filter-pill" data-cat="safety">Safety</button>
+    <button class="filter-pill" data-cat="world-models">World Models</button>
+    <button class="filter-pill" data-cat="robotics">Robotics</button>
+    <button class="filter-pill" data-cat="science">Science</button>
+    <button class="filter-pill" data-cat="diffusion">Diffusion</button>
+    <button class="filter-pill" data-cat="agents">Agents</button>
+  </div>
+  <div class="timeline-container" id="answered-tl"><div class="timeline-line"></div></div>
+</section>
+
+<!-- OPEN QUESTIONS -->
+<section id="open-questions">
+  <div class="section-header">
+    <h2>Open Frontiers</h2>
+    <p>15 questions the field is still wrestling with. Progress bars are editorial estimates, not computed metrics.</p>
+  </div>
+  <div class="filter-bar" id="oq-filters">
+    <button class="filter-pill active" data-oq="all">All</button>
+    <button class="filter-pill" data-oq="original">Original 10</button>
+    <button class="filter-pill" data-oq="new">Newly Raised</button>
+  </div>
+  <div class="oq-grid" id="oq-grid"></div>
+</section>
+
+<footer>
+  <p>Built with curiosity. Data sourced from arXiv, Nature, and original publications.<br>
+  <a href="index.html">Back to AI Timeline</a> · <a href="https://yuhuang.work">yuhuang.work</a></p>
+</footer>
+
+<script>
+/* ============================================
+   DATA: 25 ANSWERED QUESTIONS
+   ============================================ */
+const answeredQuestions=[
+{id:1,year:"2017",cat:"foundation",catLabel:"Foundation",color:"var(--act1)",colorBg:"rgba(224,123,76,0.12)",
+ question:"Can neural networks process language without sequential bottlenecks?",
+ verdict:"Yes. The Transformer processes all words in parallel via self-attention, replacing recurrence entirely. 100\u00d7 faster training enabled everything that followed.",
+ papers:[{title:"Attention Is All You Need",authors:"Vaswani et al., Google",url:"https://arxiv.org/abs/1706.03762"}],
+ raised:{text:"If parallel processing works, can a single model learn general abilities from raw text?",to:"q-2"}},
+
+{id:2,year:"2020",cat:"foundation",catLabel:"Foundation",color:"var(--act1)",colorBg:"rgba(224,123,76,0.12)",
+ question:"Can a single model learn general language abilities from raw text?",
+ verdict:"Yes. At 175B parameters, GPT-3 demonstrated few-shot learning across translation, QA, arithmetic, and code without task-specific training. \"Prompting\" replaced \"fine-tuning\" as the default paradigm.",
+ papers:[{title:"Language Models are Few-Shot Learners (GPT-3)",authors:"Brown et al., OpenAI",url:"https://arxiv.org/abs/2005.14165"}],
+ raised:{text:"Are there predictable laws governing how AI improves with scale?",to:"q-3"}},
+
+{id:3,year:"2020",cat:"foundation",catLabel:"Foundation",color:"var(--act1)",colorBg:"rgba(224,123,76,0.12)",
+ question:"Are there predictable laws governing how AI improves with scale?",
+ verdict:"Yes. Performance follows power-law relationships with model size, dataset size, and compute. Loss is predictable before training begins. This turned AI research into an investment thesis.",
+ papers:[{title:"Scaling Laws for Neural Language Models",authors:"Kaplan et al., OpenAI",url:"https://arxiv.org/abs/2001.08361"}],
+ raised:{text:"Do models need to be enormous, or just well-trained?",to:"q-8"}},
+
+{id:4,year:"2020\u201322",cat:"diffusion",catLabel:"Diffusion",color:"var(--br4)",colorBg:"rgba(168,85,247,0.12)",
+ question:"Can machines generate realistic images by learning to reverse noise?",
+ verdict:"Yes, and it can be made practical. DDPM established the framework; latent diffusion cut compute by orders of magnitude by operating in compressed space; classifier-free guidance gave precise quality-diversity control. Together they enabled Stable Diffusion, DALL-E 2, and Midjourney.",
+ papers:[
+  {title:"Denoising Diffusion Probabilistic Models (DDPM)",authors:"Ho, Jain, Abbeel",url:"https://arxiv.org/abs/2006.11239"},
+  {title:"High-Resolution Image Synthesis with Latent Diffusion",authors:"Rombach et al.",url:"https://arxiv.org/abs/2112.10752"},
+  {title:"Classifier-Free Diffusion Guidance",authors:"Ho & Salimans",url:"https://arxiv.org/abs/2207.12598"}],
+ raised:{text:"Can video generation teach AI to understand physics?",to:"q-22"}},
+
+{id:5,year:"2020",cat:"safety",catLabel:"Safety",color:"var(--act6)",colorBg:"rgba(212,160,23,0.12)",
+ question:"Can AI ground its answers in retrieved evidence rather than memory?",
+ verdict:"Yes. Search first, then answer. Retrieval-Augmented Generation reduced hallucination and enabled models to cite sources. Now the most deployed production technique for factual AI.",
+ papers:[{title:"Retrieval-Augmented Generation (RAG)",authors:"Lewis et al., Meta/UCL",url:"https://arxiv.org/abs/2005.11401"}],
+ raised:{text:"How do we build AI that reliably doesn\u2019t hallucinate?",to:"oq-2"}},
+
+{id:6,year:"2021",cat:"science",catLabel:"Science",color:"var(--br3)",colorBg:"rgba(59,130,246,0.12)",
+ question:"Can AI predict protein structures from amino acid sequence alone?",
+ verdict:"Yes. AlphaFold solved the 50-year protein folding problem with atomic-level accuracy. Won the Nobel Prize. Predicted structures for nearly all known proteins.",
+ papers:[{title:"Highly Accurate Protein Structure Prediction with AlphaFold",authors:"Jumper et al., DeepMind",url:"https://www.nature.com/articles/s41586-021-03819-2"}],
+ raised:{text:"Can AI discover entirely new materials and accelerate science at scale?",to:"q-16"}},
+
+{id:7,year:"2021\u201324",cat:"efficiency",catLabel:"Efficiency",color:"var(--act4)",colorBg:"rgba(14,165,160,0.12)",
+ question:"Can trillion-parameter models run at affordable cost?",
+ verdict:"Yes, via Mixture of Experts. Route each token to only the best expert sub-network. Switch Transformers proved the concept at trillion scale; Mixtral matched GPT-3.5 with only 13B active parameters out of 47B total.",
+ papers:[
+  {title:"Switch Transformers: Scaling to Trillion Parameter Models",authors:"Fedus, Zoph, Shazeer, Google",url:"https://arxiv.org/abs/2101.03961"},
+  {title:"Mixtral of Experts",authors:"Jiang et al., Mistral AI",url:"https://arxiv.org/abs/2401.04088"}],
+ raised:{text:"Can frontier AI cost orders of magnitude less to train?",to:"q-24"}},
+
+{id:8,year:"2022",cat:"alignment",catLabel:"Alignment",color:"var(--act2)",colorBg:"rgba(76,143,224,0.12)",
+ question:"Do models need to be enormous, or just well-trained?",
+ verdict:"Just well-trained. A 70B model trained on 4\u00d7 more data beat a 280B model. Most models were massively undertrained. This reset the entire scaling playbook.",
+ papers:[{title:"Training Compute-Optimal Large Language Models (Chinchilla)",authors:"Hoffmann et al., DeepMind",url:"https://arxiv.org/abs/2203.15556"}],
+ raised:{text:"Can open-source AI match closed-source frontier models?",to:"q-15"}},
+
+{id:9,year:"2022",cat:"alignment",catLabel:"Alignment",color:"var(--act2)",colorBg:"rgba(76,143,224,0.12)",
+ question:"Can human feedback teach AI to be helpful and safe simultaneously?",
+ verdict:"Yes, and alignment actually improves capability. InstructGPT showed a 1.3B aligned model was preferred over raw 175B GPT-3. Anthropic demonstrated RLHF boosts both safety and helpfulness, though a fundamental tension between the two exists.",
+ papers:[
+  {title:"Training Language Models to Follow Instructions (InstructGPT)",authors:"Ouyang et al., OpenAI",url:"https://arxiv.org/abs/2203.02155"},
+  {title:"Training a Helpful and Harmless Assistant with RLHF",authors:"Bai et al., Anthropic",url:"https://arxiv.org/abs/2204.05862"}],
+ raised:{text:"Can alignment be achieved without complex RL pipelines?",to:"q-19"}},
+
+{id:10,year:"2022",cat:"reasoning",catLabel:"Reasoning",color:"var(--act5)",colorBg:"rgba(224,76,122,0.12)",
+ question:"Can AI reason step-by-step like humans when prompted?",
+ verdict:"Yes. Simply asking a model to \"show its work\" dramatically improved performance on math, logic, and multi-step reasoning. The most practically useful prompting technique ever discovered.",
+ papers:[{title:"Chain-of-Thought Prompting Elicits Reasoning",authors:"Wei et al., Google",url:"https://arxiv.org/abs/2201.11903"}],
+ raised:{text:"Can a small model outperform a large one by thinking longer?",to:"q-21"}},
+
+{id:11,year:"2022",cat:"safety",catLabel:"Safety",color:"var(--act6)",colorBg:"rgba(212,160,23,0.12)",
+ question:"Can AI be taught to follow arbitrary new instructions?",
+ verdict:"Yes. Instruction tuning on diverse tasks with chain-of-thought data transforms a raw language model into a general-purpose assistant. This is the recipe that makes conversational AI possible.",
+ papers:[{title:"Scaling Instruction-Finetuned Language Models (Flan)",authors:"Chung et al., Google",url:"https://arxiv.org/abs/2210.11416"}],
+ raised:{text:"Can human feedback teach AI to be helpful and safe?",to:"q-9"}},
+
+{id:12,year:"2022\u201323",cat:"agents",catLabel:"Agents",color:"var(--br6)",colorBg:"rgba(236,72,153,0.12)",
+ question:"Can AI agents reason before they act?",
+ verdict:"Yes. ReAct introduced the think-act-observe loop. Toolformer showed LLMs can self-teach tool use. Voyager demonstrated open-ended skill acquisition in Minecraft. Together they established the foundation of agentic AI.",
+ papers:[
+  {title:"ReAct: Synergizing Reasoning and Acting",authors:"Yao et al.",url:"https://arxiv.org/abs/2210.03629"},
+  {title:"Toolformer: Language Models Can Teach Themselves to Use Tools",authors:"Schick et al., Meta",url:"https://arxiv.org/abs/2302.04761"},
+  {title:"Voyager: An Open-Ended Embodied Agent with LLMs",authors:"Wang et al.",url:"https://arxiv.org/abs/2305.16291"}],
+ raised:{text:"Can AI agents reliably complete real-world, multi-step tasks?",to:"oq-4"}},
+
+{id:13,year:"2022",cat:"world-models",catLabel:"World Models",color:"var(--br1)",colorBg:"rgba(224,123,76,0.12)",
+ question:"Is there a path to machine intelligence beyond language modeling?",
+ verdict:"LeCun argues yes: a modular cognitive architecture with predictive world models, hierarchical planning, and joint-embedding learning. This manifesto launched the World Models branch as a serious alternative to the LLM paradigm.",
+ papers:[{title:"A Path Towards Autonomous Machine Intelligence",authors:"Yann LeCun",url:"https://openreview.net/forum?id=BZ5a1r-kVsf"}],
+ raised:{text:"Can video and world models learn physics understanding?",to:"q-22"}},
+
+{id:14,year:"2023",cat:"scaling",catLabel:"Scaling",color:"var(--act3)",colorBg:"rgba(139,92,246,0.12)",
+ question:"Can a single AI system master text, images, and audio simultaneously?",
+ verdict:"Yes. GPT-4 passed the bar exam (top 10%) and demonstrated multimodal reasoning. Gemini was trained natively on text, images, audio, and video from the ground up. Both proved multimodal AI is viable, but GPT-4\u2019s secrecy also marked the shift from open research to commercial competition.",
+ papers:[
+  {title:"GPT-4 Technical Report",authors:"OpenAI",url:"https://arxiv.org/abs/2303.08774"},
+  {title:"Gemini: A Family of Highly Capable Multimodal Models",authors:"Google DeepMind",url:"https://arxiv.org/abs/2312.11805"}],
+ raised:{text:"Can autoregressive token prediction achieve general intelligence?",to:"oq-1"}},
+
+{id:15,year:"2023\u201324",cat:"scaling",catLabel:"Scaling",color:"var(--act3)",colorBg:"rgba(139,92,246,0.12)",
+ question:"Can open-source AI compete with closed-source frontier models?",
+ verdict:"Yes. LLaMA 13B outperformed GPT-3 175B using only public data. Llama 2 provided the most detailed public safety training account. Llama 3 at 405B matched GPT-4. Meta\u2019s strategic bet to commoditize the model layer by open-sourcing it worked.",
+ papers:[
+  {title:"LLaMA: Open and Efficient Foundation Language Models",authors:"Touvron et al., Meta",url:"https://arxiv.org/abs/2302.13971"},
+  {title:"Llama 2: Open Foundation and Fine-Tuned Chat Models",authors:"Touvron et al., Meta",url:"https://arxiv.org/abs/2307.09288"},
+  {title:"The Llama 3 Herd of Models",authors:"Grattafiori et al., Meta",url:"https://arxiv.org/abs/2407.21783"}],
+ raised:{text:"How small and cheap can frontier-quality AI get?",to:"oq-6"}},
+
+{id:16,year:"2023\u201325",cat:"science",catLabel:"Science",color:"var(--br3)",colorBg:"rgba(59,130,246,0.12)",
+ question:"Can AI discover new materials and accelerate science at scale?",
+ verdict:"Yes, across domains. GNoME discovered ~380,000 novel stable materials. AlphaFold 3 extended prediction to all biomolecular complexes. AlphaProof achieved silver-medal IMO performance. AI is accelerating scientific discovery across chemistry, biology, and mathematics.",
+ papers:[
+  {title:"Scaling Deep Learning for Materials Discovery (GNoME)",authors:"Merchant et al., DeepMind",url:"https://www.nature.com/articles/s41586-023-06735-9"},
+  {title:"Accurate Structure Prediction with AlphaFold 3",authors:"Abramson et al., DeepMind",url:"https://www.nature.com/articles/s41586-024-07487-w"},
+  {title:"Olympiad-Level Mathematical Reasoning with AlphaProof",authors:"Hubert et al., DeepMind",url:"https://www.nature.com/articles/s41586-025-09833-y"}],
+ raised:{text:"Can AI genuinely accelerate scientific discovery beyond optimization?",to:"oq-7"}},
+
+{id:17,year:"2023",cat:"efficiency",catLabel:"Efficiency",color:"var(--act4)",colorBg:"rgba(14,165,160,0.12)",
+ question:"Is the Transformer the only viable architecture for sequence modeling?",
+ verdict:"No. State space models offer linear-time scaling and 5\u00d7 higher throughput. Mamba is the most serious architectural challenger to the Transformer, and brain-inspired spiking neural networks (Loihi, SNN research) offer a radically different hardware path. Hybrid architectures may ultimately win.",
+ papers:[
+  {title:"Mamba: Linear-Time Sequence Modeling",authors:"Gu & Dao",url:"https://arxiv.org/abs/2312.00752"},
+  {title:"Loihi: A Neuromorphic Manycore Processor",authors:"Davies et al., Intel",url:"https://ieeexplore.ieee.org/document/8259423"},
+  {title:"Toward Large-Scale Spiking Neural Networks",authors:"Hu, Zheng, Li et al.",url:"https://arxiv.org/abs/2409.02111"}],
+ raised:{text:"Will the Transformer remain the dominant architecture?",to:"oq-8"}},
+
+{id:18,year:"2023",cat:"safety",catLabel:"Safety",color:"var(--act6)",colorBg:"rgba(212,160,23,0.12)",
+ question:"Can we look inside a neural network and understand what it learned?",
+ verdict:"Partially yes. For the first time, researchers identified individual features (concepts) inside a trained model and mapped them to human-interpretable meanings. This opens the path to auditing AI systems, though scaling to frontier models remains a challenge.",
+ papers:[{title:"Towards Monosemanticity",authors:"Anthropic",url:"https://transformer-circuits.pub/2023/monosemantic-features/index.html"}],
+ raised:{text:"Would an AI strategically fake alignment if it could?",to:"q-25"}},
+
+{id:19,year:"2023",cat:"reasoning",catLabel:"Reasoning",color:"var(--act5)",colorBg:"rgba(224,76,122,0.12)",
+ question:"Can alignment be achieved without complex reinforcement learning?",
+ verdict:"Yes. DPO replaced the entire RLHF pipeline (reward model + PPO) with a single classification loss function. Dramatically lowered the barrier for anyone to align a model, accelerating the open-source ecosystem.",
+ papers:[{title:"Direct Preference Optimization (DPO)",authors:"Rafailov et al., Stanford",url:"https://arxiv.org/abs/2305.18290"}],
+ raised:{text:"Can we verify that alignment isn\u2019t faked?",to:"oq-3"}},
+
+{id:20,year:"2023\u201324",cat:"robotics",catLabel:"Robotics",color:"var(--br2)",colorBg:"rgba(34,197,94,0.12)",
+ question:"Can robots inherit knowledge from internet-scale language models?",
+ verdict:"Yes. RT-2 transferred vision-language knowledge directly to robot control. Open X-Embodiment built the largest cross-robot dataset (22 robots, 527 skills). \u03C0\u2080 achieved state-of-the-art generalist control via flow matching. A single \"robot brain\" can control multiple bodies.",
+ papers:[
+  {title:"RT-2: Vision-Language-Action Models",authors:"Brohan et al., Google DeepMind",url:"https://arxiv.org/abs/2307.15818"},
+  {title:"Open X-Embodiment: Robotic Learning Datasets and RT-X Models",authors:"Open X-Embodiment Collaboration",url:"https://arxiv.org/abs/2310.08864"},
+  {title:"\u03C0\u2080: A Vision-Language-Action Flow Model",authors:"Black et al., Physical Intelligence",url:"https://arxiv.org/abs/2410.24164"}],
+ raised:{text:"Will world models or language models be the central architecture of AGI?",to:"oq-5"}},
+
+{id:21,year:"2024",cat:"reasoning",catLabel:"Reasoning",color:"var(--act5)",colorBg:"rgba(224,76,122,0.12)",
+ question:"Can a small model outperform a large one by thinking longer?",
+ verdict:"Yes. A small model that allocates more computation at inference time can match a model 14\u00d7 its size. This shifted the paradigm from \"train bigger\" to \"think harder\" and opened the reasoning scaling frontier.",
+ papers:[{title:"Scaling LLM Test-Time Compute Optimally",authors:"Snell et al., Google DeepMind",url:"https://arxiv.org/abs/2408.03314"}],
+ raised:{text:"Can reasoning emerge from pure reinforcement learning without human examples?",to:"q-23"}},
+
+{id:22,year:"2024\u201325",cat:"world-models",catLabel:"World Models",color:"var(--br1)",colorBg:"rgba(224,123,76,0.12)",
+ question:"Can video and world models learn physics understanding?",
+ verdict:"Partially. Sora demonstrated emergent physical simulation from scaled video diffusion. Genie created interactive environments from unlabeled video. V-JEPA validated feature-prediction without pixel generation. Cosmos provided open-source infrastructure. These systems produce convincing physics, but whether they truly understand causality remains contested.",
+ papers:[
+  {title:"Video Generation Models as World Simulators (Sora)",authors:"OpenAI",url:"https://openai.com/index/video-generation-models-as-world-simulators/"},
+  {title:"Genie: Generative Interactive Environments",authors:"Bruce et al., DeepMind",url:"https://arxiv.org/abs/2402.15391"},
+  {title:"V-JEPA: Video Joint Embedding Predictive Architecture",authors:"Bardes, Garrido, LeCun et al., Meta",url:"https://arxiv.org/abs/2404.08471"},
+  {title:"Cosmos World Foundation Model Platform",authors:"NVIDIA",url:"https://arxiv.org/abs/2501.03575"}],
+ raised:{text:"Can video generation teach AI real physics understanding?",to:"oq-9"}},
+
+{id:23,year:"2025",cat:"reasoning",catLabel:"Reasoning",color:"var(--act5)",colorBg:"rgba(224,76,122,0.12)",
+ question:"Can reasoning emerge from pure reinforcement learning?",
+ verdict:"Yes. Reasoning capabilities \u2014 including chain-of-thought, self-correction, and \"aha moments\" \u2014 emerged spontaneously from pure RL without any human-written reasoning examples. Called the \"Sputnik moment\" of AI. Proved the reasoning frontier can be pushed without proprietary data.",
+ papers:[{title:"DeepSeek-R1: Incentivizing Reasoning via RL",authors:"DeepSeek-AI (Nature, Vol. 645)",url:"https://arxiv.org/abs/2501.12948"}],
+ raised:{text:"Can autoregressive token prediction achieve general intelligence?",to:"oq-1"}},
+
+{id:24,year:"2024",cat:"safety",catLabel:"Safety",color:"var(--act6)",colorBg:"rgba(212,160,23,0.12)",
+ question:"Can frontier AI cost orders of magnitude less to train?",
+ verdict:"Yes. 671B MoE model (37B active) trained for approximately $6M matched frontier closed-source models. Inference pricing dropped 40\u00d7 in one year. The cost barrier to frontier AI is collapsing.",
+ papers:[{title:"DeepSeek-V3 Technical Report",authors:"DeepSeek-AI",url:"https://arxiv.org/abs/2412.19437"}],
+ raised:{text:"How small and cheap can frontier-quality AI get?",to:"oq-6"}},
+
+{id:25,year:"2024",cat:"safety",catLabel:"Safety",color:"var(--act6)",colorBg:"rgba(212,160,23,0.12)",
+ question:"Would an AI strategically fake alignment if it could?",
+ verdict:"Yes. Claude 3 Opus was caught strategically complying during training to preserve its own values, while reasoning internally about how to resist. The model\u2019s chain-of-thought transcripts revealed deliberate deception. This is the most concrete evidence that alignment verification is a critical unsolved problem.",
+ papers:[{title:"Alignment Faking in Large Language Models",authors:"Greenblatt et al., Anthropic",url:"https://arxiv.org/abs/2412.14093"}],
+ raised:{text:"How do we govern AI systems that may be smarter than their overseers?",to:"oq-10"}}
+];
+
+/* ============================================
+   DATA: 15 OPEN QUESTIONS
+   ============================================ */
+const openQuestions=[
+{num:"01",id:"oq-1",isNew:false,progress:35,progressColor:"var(--act5)",
+ text:"Can autoregressive token prediction achieve general intelligence, or is it a dead end?",
+ context:"LeCun argues LLMs accumulate errors exponentially and lack world understanding. The reasoning camp (o1, R1) shows token prediction has untapped depth. The answer determines whether the current $100B+ investment thesis holds.",
+ latest:"DeepSeek-R1 showed reasoning emerges from RL alone; OpenAI\u2019s o3 scores 87.5% on ARC-AGI. But LeCun\u2019s AMI Labs continues to advance JEPA alternatives. V-JEPA 2 (2025) enables zero-shot robot control without language tokens.",
+ researchers:"Yann LeCun (AMI Labs) vs. Ilya Sutskever (SSI), Dario Amodei (Anthropic), Sam Altman (OpenAI)"},
+
+{num:"02",id:"oq-2",isNew:false,progress:25,progressColor:"var(--act2)",
+ text:"How do we build AI that reliably doesn\u2019t hallucinate?",
+ context:"Even frontier models score below 40% on rigorous factuality benchmarks. RAG helps but doesn\u2019t solve it. Anthropic found internal \"inhibition circuits\" that should trigger \"I don\u2019t know\" but malfunction.",
+ latest:"Anthropic\u2019s inhibition circuit research (2025) identified specific neural features responsible for suppressing false outputs. Structured RAG with verification chains and DeepSeek-R1\u2019s self-correction during reasoning show incremental progress. No complete solution.",
+ researchers:"Anthropic (interpretability team), Google DeepMind, Meta FAIR, Eleuther AI"},
+
+{num:"03",id:"oq-3",isNew:false,progress:15,progressColor:"var(--act5)",
+ text:"Can we verify that a model is truly aligned, not just faking it?",
+ context:"Anthropic demonstrated alignment faking \u2014 Claude strategically complied during training to preserve its values. The RLHF Trilemma proved perfect alignment is computationally intractable.",
+ latest:"The Alignment Faking paper (2024) proved the threat is real with concrete evidence. Monosemanticity offers a path to reading model internals. Anthropic exploring runtime monitoring via feature detection. Fundamentally unsolved.",
+ researchers:"Anthropic (Evan Hubinger, Ryan Greenblatt), ARC Evals, MIRI, Center for AI Safety"},
+
+{num:"04",id:"oq-4",isNew:false,progress:30,progressColor:"var(--br6)",
+ text:"Can AI agents reliably complete real-world, multi-step tasks?",
+ context:"Carnegie Mellon research found agents fail at most real-world tasks. Companies that replaced workers with agents had to rehire for supervision. The gap between demos and reality is enormous.",
+ latest:"SWE-agent resolves real GitHub issues; Claude Code + MCP enables developer workflows; Manus acquired by Meta for ~$2-3B. OpenAI Codex (2025) autonomous coding agent launched. But CMU research shows high failure rates on complex, multi-step tasks.",
+ researchers:"Princeton (SWE-agent), Cognition (Devin), Anthropic (Claude Code/MCP), Google DeepMind (Gemini agents)"},
+
+{num:"05",id:"oq-5",isNew:false,progress:20,progressColor:"var(--br1)",
+ text:"Will world models or language models be the central architecture of AGI?",
+ context:"LeCun\u2019s JEPA predicts in abstract representation space; V-JEPA 2 enables zero-shot robot control. Meanwhile, LLMs keep surprising everyone with emergent capabilities. The answer reshapes the entire industry.",
+ latest:"V-JEPA 2 (2025) demonstrated zero-shot robot control from video prediction. Cosmos provides open-source world model platform. Meanwhile GPT-4o and Gemini 2.5 show language models absorbing multimodal capabilities. Convergence appears likely.",
+ researchers:"Yann LeCun (AMI Labs), Fei-Fei Li (World Labs), NVIDIA (Cosmos), Google DeepMind (Genie)"},
+
+{num:"06",id:"oq-6",isNew:false,progress:45,progressColor:"var(--act4)",
+ text:"How small and cheap can frontier-quality AI get?",
+ context:"DeepSeek matched OpenAI for ~$6M. Inference pricing dropped 40\u00d7 in one year. Frontier performance reaches consumer hardware within ~8 months. The moat may not be in the model.",
+ latest:"DeepSeek-V3 trained for ~$6M. Mixtral matched GPT-3.5 at a fraction of cost. Llama 3 405B matched GPT-4 as open-weight. Apple and Qualcomm pushing on-device models. Qwen, Gemma, Phi models shrinking the frontier gap rapidly.",
+ researchers:"DeepSeek, Mistral, Alibaba (Qwen), Apple (on-device AI), Google (Gemma)"},
+
+{num:"07",id:"oq-7",isNew:false,progress:40,progressColor:"var(--br3)",
+ text:"Can AI genuinely accelerate scientific discovery?",
+ context:"AlphaFold solved protein folding (Nobel Prize). GNoME found 380K new materials. But can AI generate truly novel hypotheses, not just optimize within known frameworks?",
+ latest:"AlphaFold 3 extends to all biomolecules (2024). AlphaProof won IMO silver medal (2025). GNoME materials now being experimentally validated. But true novel hypothesis generation \u2014 asking new questions, not just solving given ones \u2014 remains undemonstrated.",
+ researchers:"Google DeepMind (AlphaFold, GNoME, AlphaProof), Meta FAIR, Microsoft Research, Isomorphic Labs"},
+
+{num:"08",id:"oq-8",isNew:false,progress:30,progressColor:"var(--act4)",
+ text:"Will the Transformer remain the dominant architecture, or will alternatives win?",
+ context:"Mamba offers 5\u00d7 throughput with linear scaling. Hybrid architectures combine the best of both. State space models, RWKV, and new approaches keep emerging.",
+ latest:"Mamba-2 improves on the original with structured state spaces. Hybrid Transformer-SSM architectures gaining traction (Jamba, Zamba). Spiking Transformers bridge neuromorphic and conventional AI. No clear winner, but pure Transformers increasingly rare at frontier.",
+ researchers:"Albert Gu & Tri Dao (Mamba), Google (hybrid architectures), RWKV Foundation, Together AI"},
+
+{num:"09",id:"oq-9",isNew:false,progress:20,progressColor:"var(--br4)",
+ text:"Can video generation teach AI to understand physics?",
+ context:"OpenAI framed Sora as a \"world simulator.\" But does generating realistic video require understanding causality, or just memorizing patterns? This connects to LeCun\u2019s world model thesis.",
+ latest:"Sora, Genie, V-JEPA, Cosmos all approach from different angles. Genie 2 (DeepMind) generates playable 3D worlds. But controlled experiments show video models fail on counterfactual physics. The question of memorization vs. understanding remains open.",
+ researchers:"OpenAI (Sora), Google DeepMind (Veo, Genie 2), Runway, Stability AI, Pika Labs"},
+
+{num:"10",id:"oq-10",isNew:false,progress:10,progressColor:"var(--act6)",
+ text:"How do we govern AI systems that may be smarter than their overseers?",
+ context:"Frontier models increasingly resist oversight. Jailbreak success rates of 25-93% in multi-turn attacks. Export controls drive efficiency innovation. The governance gap widens as capabilities grow.",
+ latest:"Alignment faking demonstrated in production models (2024). EU AI Act taking effect. NIST AI Safety Institute operational. US executive orders on AI safety. Export controls on advanced chips driving efficiency innovation (DeepSeek). International AI safety summits continuing, but no binding framework.",
+ researchers:"Anthropic (responsible scaling), OpenAI (preparedness), NIST AI Safety Institute, EU AI Office, DeepMind Safety"},
+
+{num:"11",id:"oq-11",isNew:true,progress:15,progressColor:"var(--act5)",
+ text:"Can AI systems be made truly robust to adversarial manipulation?",
+ context:"Jailbreak success rates of 25-93% in multi-turn attacks. Red-teaming is reactive, not proactive. No model has demonstrated reliable resistance to novel attacks. As AI agents gain real-world capabilities, adversarial robustness becomes safety-critical.",
+ latest:"Anthropic and OpenAI run continuous red-team programs. Constitutional AI and rule-based reward models offer partial defenses. Formal verification of neural networks remains computationally intractable for large models. The attacker advantage persists.",
+ researchers:"Anthropic, OpenAI Preparedness, ARC Evals, MIRI, academic adversarial ML research"},
+
+{num:"12",id:"oq-12",isNew:true,progress:10,progressColor:"var(--act6)",
+ text:"Will AI concentrate or distribute economic power?",
+ context:"Cursor reached $1B ARR in 2 years. Manus acquired for $2-3B in 9 months. Open-source (DeepSeek, Llama) democratizes access, but compute requirements favor incumbents. The \"AI layer cake\" creates new winners and losers.",
+ latest:"Open-weight models (Llama 3, DeepSeek) lowering barriers. But GPU clusters cost $1B+. AI-native startups reaching massive scale (Cursor $29B, Perplexity $21B). Coding jobs shifting, not disappearing. The economic impact remains deeply uncertain.",
+ researchers:"DeepSeek (democratization), Meta (open-source), governments (regulation), economic researchers"},
+
+{num:"13",id:"oq-13",isNew:true,progress:15,progressColor:"var(--br2)",
+ text:"Can AI learn from experience in the real world, not just static datasets?",
+ context:"Current models are trained on fixed datasets and frozen at deployment. Voyager showed open-ended skill acquisition in games. But continuous real-world learning with safety guarantees is unsolved.",
+ latest:"Voyager demonstrated continuous learning in Minecraft. RT-2 and \u03C0\u2080 show transfer from simulation to real robots. Cosmos provides simulation infrastructure. But no system yet learns safely and continuously in the open world without catastrophic forgetting.",
+ researchers:"DeepMind (agents), Meta AMI Labs, Physical Intelligence, NVIDIA (simulation)"},
+
+{num:"14",id:"oq-14",isNew:true,progress:20,progressColor:"var(--act2)",
+ text:"Can we build AI systems that know what they don\u2019t know?",
+ context:"Calibration research shows models are poorly calibrated on confidence. Monosemanticity found \"inhibition circuits\" that should trigger uncertainty but malfunction. Reliable uncertainty quantification would transform AI safety and trust.",
+ latest:"Monosemanticity research found features that encode uncertainty but fail to suppress confident falsehoods. Conformal prediction methods offer statistical guarantees. DeepSeek-R1\u2019s reasoning traces show self-doubt patterns. But no model reliably abstains when it should.",
+ researchers:"Anthropic (interpretability), Google DeepMind, academic calibration researchers"},
+
+{num:"15",id:"oq-15",isNew:true,progress:25,progressColor:"var(--act3)",
+ text:"Will a single foundation model unify language, vision, action, and reasoning?",
+ context:"GPT-4 and Gemini are multimodal. RT-2 connects language to robot control. But no single model yet handles text, vision, embodied action, mathematical reasoning, and scientific discovery. The convergence zone on the branch map is the hypothesis.",
+ latest:"Gemini 2.5 and GPT-4o integrate text, vision, and audio. RT-2 bridges language and robotics. AlphaProof demonstrates mathematical reasoning. But these remain separate systems. True unification \u2014 one model that reasons, sees, acts, and discovers \u2014 has not been demonstrated.",
+ researchers:"Google DeepMind, OpenAI, Meta FAIR, NVIDIA, Physical Intelligence"}
+];
+
+/* ============================================
+   RENDER: ANSWERED QUESTIONS TIMELINE
+   ============================================ */
+const answeredTl=document.getElementById('answered-tl');
+answeredQuestions.forEach(q=>{
+  const div=document.createElement('div');
+  div.className='timeline-item';
+  div.dataset.cat=q.cat;
+  div.id='q-'+q.id;
+  div.innerHTML=`<div class="tl-node" style="border-color:${q.color}"></div>
+<div class="qa-card"><div class="qa-card-inner">
+  <div class="qa-meta">
+    <span class="qa-year" style="background:${q.colorBg};color:${q.color}">${q.year}</span>
+    <span class="qa-cat-tag" style="background:${q.colorBg};color:${q.color}">${q.catLabel}</span>
+  </div>
+  <div class="qa-question">${q.question}</div>
+  <div class="qa-verdict"><strong>Verdict:</strong> ${q.verdict}</div>
+  <div class="qa-papers">
+    <div class="qa-papers-label">Paper${q.papers.length>1?'s':''}</div>
+    ${q.papers.map(p=>`<a href="${p.url}" target="_blank" rel="noopener" class="qa-paper-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>${p.title} \u2014 ${p.authors}</a>`).join('')}
+  </div>
+  <div class="qa-raised">This raised \u2192 <a href="#${q.raised.to}">${q.raised.text}</a></div>
+</div></div>`;
+  answeredTl.appendChild(div);
+});
+
+/* ============================================
+   RENDER: OPEN QUESTIONS
+   ============================================ */
+const oqGrid=document.getElementById('oq-grid');
+openQuestions.forEach(q=>{
+  const div=document.createElement('div');
+  div.className='oq-card';
+  div.id=q.id;
+  div.dataset.oqtype=q.isNew?'new':'original';
+  div.innerHTML=`
+<div class="oq-header">
+  <span class="oq-num">${q.num}</span>
+  ${q.isNew?'<span class="oq-new-badge">New</span>':''}
+</div>
+<div class="oq-question">${q.text}</div>
+<div class="oq-progress-wrap">
+  <div class="oq-progress-label"><span>Progress</span><span>${q.progress}%</span></div>
+  <div class="oq-progress-bar"><div class="oq-progress-fill" data-progress="${q.progress}" style="background:${q.progressColor}"></div></div>
+</div>
+<div class="oq-context">${q.context}</div>
+<div class="oq-latest"><strong>Latest:</strong> ${q.latest}</div>
+<div class="oq-researchers"><strong>Who\u2019s working on it</strong>${q.researchers}</div>`;
+  oqGrid.appendChild(div);
+});
+
+/* ============================================
+   FILTERS: ANSWERED QUESTIONS
+   ============================================ */
+document.getElementById('q-filters').addEventListener('click',e=>{
+  const pill=e.target.closest('.filter-pill');
+  if(!pill)return;
+  document.querySelectorAll('#q-filters .filter-pill').forEach(x=>x.classList.remove('active'));
+  pill.classList.add('active');
+  const cat=pill.dataset.cat;
+  document.querySelectorAll('#answered-tl .timeline-item').forEach(i=>{
+    i.classList.toggle('hidden-filter',cat!=='all'&&i.dataset.cat!==cat);
+  });
+});
+
+/* ============================================
+   FILTERS: OPEN QUESTIONS
+   ============================================ */
+document.getElementById('oq-filters').addEventListener('click',e=>{
+  const pill=e.target.closest('.filter-pill');
+  if(!pill)return;
+  document.querySelectorAll('#oq-filters .filter-pill').forEach(x=>x.classList.remove('active'));
+  pill.classList.add('active');
+  const oq=pill.dataset.oq;
+  document.querySelectorAll('#oq-grid .oq-card').forEach(c=>{
+    c.classList.toggle('hidden-filter',oq!=='all'&&c.dataset.oqtype!==oq);
+  });
+});
+
+/* ============================================
+   SMOOTH SCROLL INTERNAL LINKS + FLASH
+   ============================================ */
+document.querySelectorAll('.qa-raised a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const href=a.getAttribute('href');
+    // Reset filters so target is visible
+    document.querySelectorAll('#q-filters .filter-pill').forEach(p=>p.classList.remove('active'));
+    document.querySelector('#q-filters .filter-pill[data-cat="all"]').classList.add('active');
+    document.querySelectorAll('#answered-tl .timeline-item').forEach(i=>i.classList.remove('hidden-filter'));
+    document.querySelectorAll('#oq-filters .filter-pill').forEach(p=>p.classList.remove('active'));
+    document.querySelector('#oq-filters .filter-pill[data-oq="all"]').classList.add('active');
+    document.querySelectorAll('#oq-grid .oq-card').forEach(c=>c.classList.remove('hidden-filter'));
+
+    const target=document.querySelector(href);
+    if(target){
+      target.scrollIntoView({behavior:'smooth',block:'center'});
+      target.classList.add('visible');
+      const flashEl=target.querySelector('.qa-card-inner')||target;
+      flashEl.classList.add('highlight-flash');
+      setTimeout(()=>flashEl.classList.remove('highlight-flash'),1500);
+    }
+  });
+});
+
+/* ============================================
+   SCROLL REVEAL
+   ============================================ */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.timeline-item,.oq-card').forEach(i=>obs.observe(i));
+
+/* ============================================
+   PROGRESS BAR ANIMATION ON SCROLL
+   ============================================ */
+const progressObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const fill=e.target.querySelector('.oq-progress-fill');
+      if(fill)fill.style.width=fill.dataset.progress+'%';
+    }
+  });
+},{threshold:0.3});
+document.querySelectorAll('.oq-card').forEach(c=>progressObs.observe(c));
+</script>
+</body>
+</html>
